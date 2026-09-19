@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="consola_supermercado/consola_supermercado.csproj" />
+  <Project Path="lib_supermercado/lib_supermercado.csproj" />
+  <Project Path="test_supermercado/test_supermercado.csproj" />
+</Solution>
