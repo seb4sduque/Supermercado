@@ -186,4 +186,116 @@ CREATE TABLE MovimientosInventarios (
     Inventario INT NOT NULL,
     CONSTRAINT FK_MovimientosInventarios_Inventarios FOREIGN KEY (Inventario) REFERENCES Inventarios(Id)
 );
+
+USE SupermercadoDB;
+GO
+
+-- =====================================================
+-- NIVEL 1: Tablas que NO dependen de otras
+-- =====================================================
+
+INSERT INTO Bodegas (Nombre, Descripcion, Capacidad, Estado) VALUES
+('Bodega Principal', 'Bodega central de almacenamiento', 5000.00, 'Activa'),
+('Bodega Secundaria', 'Bodega para productos de baja rotación', 2000.00, 'Activa');
+
+INSERT INTO Cargos (Nombre, Descripcion, SalarioBase, NivelAcceso) VALUES
+('Administrador', 'Gestión general del negocio', 3500000.00, 'Total'),
+('Cajero', 'Atención y cobro a clientes', 1500000.00, 'Medio');
+
+INSERT INTO Categorias (Nombre, Descripcion, Estado, FechaCreacion) VALUES
+('Bebidas', 'Gaseosas, jugos y agua', 'Activa', '2026-01-10T08:00:00'),
+('Alimentos', 'Productos alimenticios', 'Activa', '2026-01-10T08:05:00');
+
+INSERT INTO MetodosPago (Nombre, Descripcion, RequiereBanco, MontoMinimo) VALUES
+('Efectivo', 'Pago en efectivo', 0, 0.00),
+('Tarjeta', 'Tarjeta débito o crédito', 1, 5000.00);
+
+INSERT INTO Personas (Nombre, Telefono, Correo, Documento) VALUES
+('Carlos Gómez', '3001112233', 'carlos.gomez@correo.com', '1001001001'),
+('María Rodríguez', '3002223344', 'maria.rodriguez@correo.com', '1002002002');
+
+INSERT INTO Turnos (Nombre, HoraInicio, HoraFin, Festivos) VALUES
+('Mañana', '06:00:00', '14:00:00', 0),
+('Tarde', '14:00:00', '22:00:00', 0);
+
+USE SupermercadoDB;
+GO
+
+
+-- =====================================================
+-- NIVEL 2: Dependen de tablas del nivel 1
+-- =====================================================
+
+INSERT INTO Subcategorias (Nombre, Descripcion, Impuesto, Categoria) VALUES
+(N'Gaseosas', N'Bebidas carbonatadas', 19.00, 1),
+(N'Lácteos', N'Leche, queso y derivados', 5.00, 2);
+
+INSERT INTO Clientes (Estado, Persona) VALUES
+(N'Activo', 1),
+(N'Activo', 2);
+
+INSERT INTO Empleados (FechaContratacion, Persona, Cargo) VALUES
+('2025-03-01T08:00:00', 1, 1),
+('2025-06-15T08:00:00', 2, 2);
+
+INSERT INTO Proveedores (Direccion, NombreEmpresa, TipoProveedor, Persona) VALUES
+(N'Calle 10 # 20-30, Medellín', N'Distribuidora Andina', N'Bebidas', 1),
+(N'Carrera 50 # 15-20, Envigado', N'Alimentos del Valle', N'Alimentos', 2);
+
+-- =====================================================
+-- NIVEL 3: Dependen de tablas del nivel 2
+-- =====================================================
+
+INSERT INTO Productos (Nombre, Precio, CodigoBarras, Subcategoria) VALUES
+(N'Gaseosa Cola 1.5L', 5500.00, N'7701234567890', 1),
+(N'Leche Entera 1L', 4200.00, N'7709876543210', 2);
+
+INSERT INTO ComprasProveedores (NumeroFactura, FechaCompra, TotalCompra, Proveedor) VALUES
+(1001, '2026-08-01T09:00:00', 400000.00, 1),
+(1002, '2026-08-05T10:30:00', 300000.00, 2);
+
+INSERT INTO Facturas (FechaHora, TotalPagar, Estado, Cliente, Empleado, MetodoPago) VALUES
+('2026-09-10T10:15:00', 5500.00, N'Pagada', 1, 2, 1),
+('2026-09-11T16:40:00', 8400.00, N'Pendiente', 2, 2, 2);
+
+INSERT INTO ProgramacionTurnos (FechaAsignacion, HorasExtras, Empleado, Turno) VALUES
+('2026-09-15T00:00:00', 0, 1, 1),
+('2026-09-15T00:00:00', 2, 2, 2);
+
+INSERT INTO SueldoEmpleados (MontoPagado, FechaPago, MetodoPago, Empleado) VALUES
+(3500000.00, '2026-09-30T00:00:00', N'Transferencia', 1),
+(1500000.00, '2026-09-30T00:00:00', N'Transferencia', 2);
+
+-- =====================================================
+-- NIVEL 4: Dependen de tablas del nivel 3
+-- =====================================================
+
+INSERT INTO Inventarios (Stock, StockMinimo, Producto, Bodega) VALUES
+(100, 20, 1, 1),
+(100, 15, 2, 2);
+
+INSERT INTO DetallesCompras (PrecioCompra, Cantidad, Producto, CompraProveedor) VALUES
+(4000.00, 100, 1, 1),
+(3000.00, 100, 2, 2);
+
+INSERT INTO DetallesFacturas (Cantidad, PrecioUnitario, Factura, Producto) VALUES
+(1, 5500.00, 1, 1),
+(2, 4200.00, 2, 2);
+
+INSERT INTO CuentasCobrar (SaldoPendiente, EstadoDeuda, Cliente, Factura) VALUES
+(0.00, N'Pagada', 1, 1),
+(8400.00, N'Pendiente', 2, 2);
+
+-- =====================================================
+-- NIVEL 5: Dependen de Inventarios
+-- =====================================================
+
+INSERT INTO MovimientosInventarios (TipoMovimiento, CantidadMovimiento, FechaHora, Inventario) VALUES
+(N'Entrada', 100, '2026-08-01T09:30:00', 1),
+(N'Salida', 1, '2026-09-10T10:15:00', 1);
+GO
+
+
+
+
 */
