@@ -29,11 +29,6 @@ try
     var SueldoEmpleados = conexion.SueldoEmpleados!.ToList();
     var Turnos = conexion.Turnos!.ToList();
 
-    foreach ( var t in Bodegas ){
-
-    }
-
-
 
 }
 catch (Exception ex)
