@@ -1,5 +1,6 @@
-﻿using lib_supermercado.entidades;
+using lib_supermercado.entidades;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,6 +34,7 @@ namespace lib_supermercado.interfaces
         public DbSet<Turnos> Turnos { get; set; } 
 
         
+        EntityEntry<T> Entry<T>(T entity) where T : class;
         int SaveChanges();
 
     }

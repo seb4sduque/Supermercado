@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace lib_supermercado.entidades
@@ -9,10 +10,13 @@ namespace lib_supermercado.entidades
         public int Id { get; set; }
         public DateTime FechaAsignacion { get; set; }
         public int HorasExtras { get; set; }
-        public int EmpleadoId { get; set; }
-        public int TurnoId { get; set; }
+        public int Empleado { get; set; }
+        public int Turno { get; set; }
 
-        public Empleados _empleado { get; set; }
-        public Turnos _turno { get; set; }
+        [ForeignKey("Empleado")]
+        public Empleados _Empleado { get; set; }
+
+        [ForeignKey("Turno")]
+        public Turnos _Turno { get; set; }
     }
 }
