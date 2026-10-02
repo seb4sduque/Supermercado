@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace lib_supermercado.entidades
@@ -8,11 +9,13 @@ namespace lib_supermercado.entidades
     {
         public int Id { get; set; }
         public DateTime FechaContratacion { get; set; }
-        public int PersonaId { get; set; }
-        public int CargoId { get; set; }
+        public int Persona { get; set; }
+        public int Cargo { get; set; }
 
-        public Personas _persona { get; set; }
-        public Cargos _cargo { get; set; }
+        [ForeignKey("Persona")]
+        public Personas _Persona { get; set; }
+        [ForeignKey("Cargo")]
+        public Cargos _Cargo { get; set; }
         public List<Facturas> Facturas { get; set; }
         public List<SueldoEmpleados> SueldosEmpleados { get; set; }
     }

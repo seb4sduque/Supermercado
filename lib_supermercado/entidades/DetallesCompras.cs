@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace lib_supermercado.entidades
@@ -9,10 +10,12 @@ namespace lib_supermercado.entidades
         public int Id { get; set; }
         public decimal PrecioCompra { get; set; }
         public int Cantidad { get; set; }
-        public int ProductoId { get; set; }
-        public int CompraProveedorId { get; set; }
+        public int Producto { get; set; }
+        public int CompraProveedor { get; set; }
 
-        public Productos _producto { get; set; }
-        public ComprasProveedores _compraProveedor { get; set; }
+        [ForeignKey("Producto")]
+        public Productos _Producto { get; set; }
+        [ForeignKey("CompraProveedor")]
+        public ComprasProveedores _CompraProveedor { get; set; }
     }
 }

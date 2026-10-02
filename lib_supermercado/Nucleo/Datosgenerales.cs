@@ -1,4 +1,8 @@
-﻿namespace lib_supermercado.nucleo
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace lib_supermercado.Nucleo
 {
     public class Datosgenerales
     {
@@ -8,3 +12,4 @@
         }
     }
 }
+

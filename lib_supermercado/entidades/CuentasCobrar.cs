@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace lib_supermercado.entidades
@@ -9,10 +10,12 @@ namespace lib_supermercado.entidades
         public int Id { get; set; }
         public decimal SaldoPendiente { get; set; }
         public string EstadoDeuda { get; set; }
-        public int ClienteId { get; set; }
-        public int FacturaId { get; set; }
+        public int Cliente { get; set; }
+        public int Factura { get; set; }
 
-        public Clientes _cliente { get; set; }
-        public Facturas _factura { get; set; }
+        [ForeignKey("Cliente")]
+        public Clientes _Cliente { get; set; }
+        [ForeignKey("Factura")]
+        public Facturas _Factura { get; set; }
     }
 }
