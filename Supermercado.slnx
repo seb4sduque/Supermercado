@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="consola_supermercado/consola_supermercado.csproj" />
   <Project Path="lib_supermercado/lib_supermercado.csproj" />
+  <Project Path="Presentacion_Supermercado/Presentacion_Supermercado.csproj" Id="b2fd12bf-407c-4645-86c8-6e6d99f2e0ce" />
   <Project Path="test_supermercado/test_supermercado.csproj" />
 </Solution>
