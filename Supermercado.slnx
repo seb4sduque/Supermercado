@@ -1,10 +1,11 @@
 <Solution>
   <Folder Name="/1. Servicio/">
+    <Project Path="ASP_Supermercado/ASP_Supermercado.csproj" Id="30477fc1-4687-4474-8642-ab811eaa39ef" />
     <Project Path="lib_supermercado/lib_supermercado.csproj" />
   </Folder>
   <Folder Name="/2. Aplicacion/">
-    <Project Path="Presentacion_Supermercado/Presentacion_Supermercado.csproj" Id="b2fd12bf-407c-4645-86c8-6e6d99f2e0ce" />
     <Project Path="consola_supermercado/consola_supermercado.csproj" />
+    <Project Path="Presentacion_Supermercado/Presentacion_Supermercado.csproj" Id="b2fd12bf-407c-4645-86c8-6e6d99f2e0ce" />
   </Folder>
   <Folder Name="/3. Pruebas/">
     <Project Path="test_supermercado/test_supermercado.csproj" />
