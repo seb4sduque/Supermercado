@@ -1,0 +1,6 @@
+@ASP_Supermercado_BK_HostAddress = http://localhost:5282
+
+GET {{ASP_Supermercado_BK_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
