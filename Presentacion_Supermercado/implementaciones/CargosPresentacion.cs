@@ -1,8 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
 using lib_supermercado.entidades;
-using lib_supermercado.interfaces;
-using Microsoft.EntityFrameworkCore;
 using Presentacion_Supermercado.interfaces;
 
 namespace Presentacion_Supermercado.implementaciones

@@ -1,5 +1,4 @@
 using lib_supermercado.entidades;
-using lib_supermercado.interfaces;
 using Presentacion_Supermercado.interfaces;
 
 namespace Presentacion_Supermercado.implementaciones
