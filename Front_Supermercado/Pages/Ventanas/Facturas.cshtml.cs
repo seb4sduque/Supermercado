@@ -2,6 +2,7 @@ using lib_supermercado.entidades;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Front_Supermercado.Nucleo;
 using Presentacion_Supermercado.interfaces;
 
 namespace Front_Supermercado.Pages.Ventanas
@@ -9,31 +10,22 @@ namespace Front_Supermercado.Pages.Ventanas
     public class FacturasModel : PageModel
     {
         private IFacturasPresentacion IFacturasPresentacion;
-        private IClientesPresentacion IClientesPresentacion;
-        private IEmpleadosPresentacion IEmpleadosPresentacion;
-        private IPersonasPresentacion IPersonasPresentacion;
-        private IMetodosPagoPresentacion IMetodosPagoPresentacion;
+        private Catalogos catalogos;
 
         public FacturasModel(IFacturasPresentacion IFacturasPresentacion,
-            IClientesPresentacion IClientesPresentacion,
-            IEmpleadosPresentacion IEmpleadosPresentacion,
-            IPersonasPresentacion IPersonasPresentacion,
-            IMetodosPagoPresentacion IMetodosPagoPresentacion)
+            Catalogos catalogos)
         {
             this.IFacturasPresentacion = IFacturasPresentacion;
-            this.IClientesPresentacion = IClientesPresentacion;
-            this.IEmpleadosPresentacion = IEmpleadosPresentacion;
-            this.IPersonasPresentacion = IPersonasPresentacion;
-            this.IMetodosPagoPresentacion = IMetodosPagoPresentacion;
+            this.catalogos = catalogos;
         }
 
-        // Listas desplegables (valor = Id, texto = nombre) y nombres para la tabla
-        public List<SelectListItem> Clientes { get; set; } = new();
-        public List<SelectListItem> Empleados { get; set; } = new();
-        public List<SelectListItem> MetodosPago { get; set; } = new();
+        // Nombres para mostrar y listas desplegables (el usuario no ve los Id)
         public Dictionary<int, string> NombreCliente { get; set; } = new();
+        public List<SelectListItem> OpcionesCliente { get; set; } = new();
         public Dictionary<int, string> NombreEmpleado { get; set; } = new();
+        public List<SelectListItem> OpcionesEmpleado { get; set; } = new();
         public Dictionary<int, string> NombreMetodoPago { get; set; } = new();
+        public List<SelectListItem> OpcionesMetodoPago { get; set; } = new();
 
         public List<Facturas>? Lista { get; set; }
         [BindProperty] public Facturas? Actual { get; set; }
@@ -56,22 +48,20 @@ namespace Front_Supermercado.Pages.Ventanas
             }
         }
 
-        // El cliente y el empleado se muestran con el nombre de su Persona
         private void CargarListas()
         {
-            var personas = this.IPersonasPresentacion.Consultar()
-                .ToDictionary(x => x.Id, x => x.Nombre);
-
-            NombreCliente = this.IClientesPresentacion.Consultar()
-                .ToDictionary(x => x.Id, x => personas.GetValueOrDefault(x.Persona, ""));
-            NombreEmpleado = this.IEmpleadosPresentacion.Consultar()
-                .ToDictionary(x => x.Id, x => personas.GetValueOrDefault(x.Persona, ""));
-            NombreMetodoPago = this.IMetodosPagoPresentacion.Consultar()
-                .ToDictionary(x => x.Id, x => x.Nombre);
-
-            Clientes = NombreCliente.Select(x => new SelectListItem(x.Value, x.Key.ToString())).ToList();
-            Empleados = NombreEmpleado.Select(x => new SelectListItem(x.Value, x.Key.ToString())).ToList();
-            MetodosPago = NombreMetodoPago.Select(x => new SelectListItem(x.Value, x.Key.ToString())).ToList();
+            NombreCliente = catalogos.Clientes();
+            OpcionesCliente = NombreCliente
+                .Select(x => new SelectListItem(x.Value, x.Key.ToString()))
+                .OrderBy(x => x.Text).ToList();
+            NombreEmpleado = catalogos.Empleados();
+            OpcionesEmpleado = NombreEmpleado
+                .Select(x => new SelectListItem(x.Value, x.Key.ToString()))
+                .OrderBy(x => x.Text).ToList();
+            NombreMetodoPago = catalogos.MetodosPago();
+            OpcionesMetodoPago = NombreMetodoPago
+                .Select(x => new SelectListItem(x.Value, x.Key.ToString()))
+                .OrderBy(x => x.Text).ToList();
         }
 
         public void OnPostBtNuevo()

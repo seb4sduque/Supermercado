@@ -1,6 +1,8 @@
 using lib_supermercado.entidades;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Front_Supermercado.Nucleo;
 using Presentacion_Supermercado.interfaces;
 
 namespace Front_Supermercado.Pages.Ventanas
@@ -8,11 +10,18 @@ namespace Front_Supermercado.Pages.Ventanas
     public class ComprasProveedoresModel : PageModel
     {
         private IComprasProveedoresPresentacion IComprasProveedoresPresentacion;
+        private Catalogos catalogos;
 
-        public ComprasProveedoresModel(IComprasProveedoresPresentacion IComprasProveedoresPresentacion)
+        public ComprasProveedoresModel(IComprasProveedoresPresentacion IComprasProveedoresPresentacion,
+            Catalogos catalogos)
         {
             this.IComprasProveedoresPresentacion = IComprasProveedoresPresentacion;
+            this.catalogos = catalogos;
         }
+
+        // Nombres para mostrar y listas desplegables (el usuario no ve los Id)
+        public Dictionary<int, string> NombreProveedor { get; set; } = new();
+        public List<SelectListItem> OpcionesProveedor { get; set; } = new();
 
         public List<ComprasProveedores>? Lista { get; set; }
         [BindProperty] public ComprasProveedores? Actual { get; set; }
@@ -27,6 +36,7 @@ namespace Front_Supermercado.Pages.Ventanas
             try
             {
                 Lista = this.IComprasProveedoresPresentacion.Consultar();
+                CargarListas();
             }
             catch (Exception ex)
             {
@@ -34,11 +44,20 @@ namespace Front_Supermercado.Pages.Ventanas
             }
         }
 
+        private void CargarListas()
+        {
+            NombreProveedor = catalogos.Proveedores();
+            OpcionesProveedor = NombreProveedor
+                .Select(x => new SelectListItem(x.Value, x.Key.ToString()))
+                .OrderBy(x => x.Text).ToList();
+        }
+
         public void OnPostBtNuevo()
         {
             try
             {
                 ModelState.Clear();
+                CargarListas();
                 Nuevo = true;
                 this.Actual = new ComprasProveedores();
             }
@@ -81,6 +100,7 @@ namespace Front_Supermercado.Pages.Ventanas
             catch (Exception ex)
             {
                 Nuevo = true;
+                try { CargarListas(); } catch { }
                 Error(ex);
             }
         }

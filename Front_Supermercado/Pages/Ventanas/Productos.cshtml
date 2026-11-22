@@ -54,8 +54,10 @@
                     <input asp-for="@Model.Actual!.CodigoBarras" class="form-control" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Subcategoria (Id)</label>
-                    <input asp-for="@Model.Actual!.Subcategoria" type="number" class="form-control" />
+                    <label class="form-label">Subcategoria</label>
+                    <select asp-for="@Model.Actual!.Subcategoria" asp-items="Model.OpcionesSubcategoria" class="form-select">
+                        <option value="0">-- Seleccione --</option>
+                    </select>
                 </div>
         </div>
     }
@@ -65,11 +67,10 @@
         <div class="containers_vn panel panel-default mt-4">
             <table class="tb_data table table-striped table-bordered table-hover">
                 <tr>
-                    <th>Id</th>
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th>Codigo Barras</th>
-                    <th>Subcategoria (Id)</th>
+                    <th>Subcategoria</th>
                     <th></th>
                 </tr>
                 @if (Model.Lista != null)
@@ -77,11 +78,10 @@
                     foreach (var elemento in Model.Lista)
                     {
                         <tr>
-                            <td>@elemento.Id</td>
                             <td>@elemento.Nombre</td>
                             <td>@elemento.Precio</td>
                             <td>@elemento.CodigoBarras</td>
-                            <td>@elemento.Subcategoria</td>
+                            <td>@Model.NombreSubcategoria.GetValueOrDefault(elemento.Subcategoria)</td>
                             <td>
                                 <button type="submit"
                                     class="btn btn-sm btn-outline-primary"

@@ -1,6 +1,8 @@
 using lib_supermercado.entidades;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Front_Supermercado.Nucleo;
 using Presentacion_Supermercado.interfaces;
 
 namespace Front_Supermercado.Pages.Ventanas
@@ -8,11 +10,18 @@ namespace Front_Supermercado.Pages.Ventanas
     public class SueldoEmpleadosModel : PageModel
     {
         private ISueldoEmpleadosPresentacion ISueldoEmpleadosPresentacion;
+        private Catalogos catalogos;
 
-        public SueldoEmpleadosModel(ISueldoEmpleadosPresentacion ISueldoEmpleadosPresentacion)
+        public SueldoEmpleadosModel(ISueldoEmpleadosPresentacion ISueldoEmpleadosPresentacion,
+            Catalogos catalogos)
         {
             this.ISueldoEmpleadosPresentacion = ISueldoEmpleadosPresentacion;
+            this.catalogos = catalogos;
         }
+
+        // Nombres para mostrar y listas desplegables (el usuario no ve los Id)
+        public Dictionary<int, string> NombreEmpleado { get; set; } = new();
+        public List<SelectListItem> OpcionesEmpleado { get; set; } = new();
 
         public List<SueldoEmpleados>? Lista { get; set; }
         [BindProperty] public SueldoEmpleados? Actual { get; set; }
@@ -27,6 +36,7 @@ namespace Front_Supermercado.Pages.Ventanas
             try
             {
                 Lista = this.ISueldoEmpleadosPresentacion.Consultar();
+                CargarListas();
             }
             catch (Exception ex)
             {
@@ -34,11 +44,20 @@ namespace Front_Supermercado.Pages.Ventanas
             }
         }
 
+        private void CargarListas()
+        {
+            NombreEmpleado = catalogos.Empleados();
+            OpcionesEmpleado = NombreEmpleado
+                .Select(x => new SelectListItem(x.Value, x.Key.ToString()))
+                .OrderBy(x => x.Text).ToList();
+        }
+
         public void OnPostBtNuevo()
         {
             try
             {
                 ModelState.Clear();
+                CargarListas();
                 Nuevo = true;
                 this.Actual = new SueldoEmpleados();
             }
@@ -81,6 +100,7 @@ namespace Front_Supermercado.Pages.Ventanas
             catch (Exception ex)
             {
                 Nuevo = true;
+                try { CargarListas(); } catch { }
                 Error(ex);
             }
         }

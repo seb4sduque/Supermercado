@@ -1,3 +1,4 @@
+using Front_Supermercado.Nucleo;
 using Presentacion_Supermercado.implementaciones;
 using Presentacion_Supermercado.interfaces;
 using System.Globalization;
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<IComunicaciones, Comunicaciones>();
+builder.Services.AddScoped<Catalogos>();
 builder.Services.AddScoped<IBodegasPresentacion, BodegasPresentacion>();
 builder.Services.AddScoped<ICargosPresentacion, CargosPresentacion>();
 builder.Services.AddScoped<ICategoriasPresentacion, CategoriasPresentacion>();

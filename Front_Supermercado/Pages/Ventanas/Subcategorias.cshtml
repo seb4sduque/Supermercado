@@ -54,8 +54,10 @@
                     <input asp-for="@Model.Actual!.Impuesto" type="number" step="any" class="form-control" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Categoria (Id)</label>
-                    <input asp-for="@Model.Actual!.Categoria" type="number" class="form-control" />
+                    <label class="form-label">Categoria</label>
+                    <select asp-for="@Model.Actual!.Categoria" asp-items="Model.OpcionesCategoria" class="form-select">
+                        <option value="0">-- Seleccione --</option>
+                    </select>
                 </div>
         </div>
     }
@@ -65,11 +67,10 @@
         <div class="containers_vn panel panel-default mt-4">
             <table class="tb_data table table-striped table-bordered table-hover">
                 <tr>
-                    <th>Id</th>
                     <th>Nombre</th>
                     <th>Descripcion</th>
                     <th>Impuesto</th>
-                    <th>Categoria (Id)</th>
+                    <th>Categoria</th>
                     <th></th>
                 </tr>
                 @if (Model.Lista != null)
@@ -77,11 +78,10 @@
                     foreach (var elemento in Model.Lista)
                     {
                         <tr>
-                            <td>@elemento.Id</td>
                             <td>@elemento.Nombre</td>
                             <td>@elemento.Descripcion</td>
                             <td>@elemento.Impuesto</td>
-                            <td>@elemento.Categoria</td>
+                            <td>@Model.NombreCategoria.GetValueOrDefault(elemento.Categoria)</td>
                             <td>
                                 <button type="submit"
                                     class="btn btn-sm btn-outline-primary"

@@ -1,6 +1,8 @@
 using lib_supermercado.entidades;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Front_Supermercado.Nucleo;
 using Presentacion_Supermercado.interfaces;
 
 namespace Front_Supermercado.Pages.Ventanas
@@ -8,11 +10,20 @@ namespace Front_Supermercado.Pages.Ventanas
     public class CuentasCobrarModel : PageModel
     {
         private ICuentasCobrarPresentacion ICuentasCobrarPresentacion;
+        private Catalogos catalogos;
 
-        public CuentasCobrarModel(ICuentasCobrarPresentacion ICuentasCobrarPresentacion)
+        public CuentasCobrarModel(ICuentasCobrarPresentacion ICuentasCobrarPresentacion,
+            Catalogos catalogos)
         {
             this.ICuentasCobrarPresentacion = ICuentasCobrarPresentacion;
+            this.catalogos = catalogos;
         }
+
+        // Nombres para mostrar y listas desplegables (el usuario no ve los Id)
+        public Dictionary<int, string> NombreCliente { get; set; } = new();
+        public List<SelectListItem> OpcionesCliente { get; set; } = new();
+        public Dictionary<int, string> NombreFactura { get; set; } = new();
+        public List<SelectListItem> OpcionesFactura { get; set; } = new();
 
         public List<CuentasCobrar>? Lista { get; set; }
         [BindProperty] public CuentasCobrar? Actual { get; set; }
@@ -27,6 +38,7 @@ namespace Front_Supermercado.Pages.Ventanas
             try
             {
                 Lista = this.ICuentasCobrarPresentacion.Consultar();
+                CargarListas();
             }
             catch (Exception ex)
             {
@@ -34,11 +46,24 @@ namespace Front_Supermercado.Pages.Ventanas
             }
         }
 
+        private void CargarListas()
+        {
+            NombreCliente = catalogos.Clientes();
+            OpcionesCliente = NombreCliente
+                .Select(x => new SelectListItem(x.Value, x.Key.ToString()))
+                .OrderBy(x => x.Text).ToList();
+            NombreFactura = catalogos.Facturas();
+            OpcionesFactura = NombreFactura
+                .Select(x => new SelectListItem(x.Value, x.Key.ToString()))
+                .OrderBy(x => x.Text).ToList();
+        }
+
         public void OnPostBtNuevo()
         {
             try
             {
                 ModelState.Clear();
+                CargarListas();
                 Nuevo = true;
                 this.Actual = new CuentasCobrar();
             }
@@ -81,6 +106,7 @@ namespace Front_Supermercado.Pages.Ventanas
             catch (Exception ex)
             {
                 Nuevo = true;
+                try { CargarListas(); } catch { }
                 Error(ex);
             }
         }

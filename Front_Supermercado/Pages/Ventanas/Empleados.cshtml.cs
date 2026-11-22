@@ -1,6 +1,8 @@
 using lib_supermercado.entidades;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Front_Supermercado.Nucleo;
 using Presentacion_Supermercado.interfaces;
 
 namespace Front_Supermercado.Pages.Ventanas
@@ -8,11 +10,20 @@ namespace Front_Supermercado.Pages.Ventanas
     public class EmpleadosModel : PageModel
     {
         private IEmpleadosPresentacion IEmpleadosPresentacion;
+        private Catalogos catalogos;
 
-        public EmpleadosModel(IEmpleadosPresentacion IEmpleadosPresentacion)
+        public EmpleadosModel(IEmpleadosPresentacion IEmpleadosPresentacion,
+            Catalogos catalogos)
         {
             this.IEmpleadosPresentacion = IEmpleadosPresentacion;
+            this.catalogos = catalogos;
         }
+
+        // Nombres para mostrar y listas desplegables (el usuario no ve los Id)
+        public Dictionary<int, string> NombrePersona { get; set; } = new();
+        public List<SelectListItem> OpcionesPersona { get; set; } = new();
+        public Dictionary<int, string> NombreCargo { get; set; } = new();
+        public List<SelectListItem> OpcionesCargo { get; set; } = new();
 
         public List<Empleados>? Lista { get; set; }
         [BindProperty] public Empleados? Actual { get; set; }
@@ -27,6 +38,7 @@ namespace Front_Supermercado.Pages.Ventanas
             try
             {
                 Lista = this.IEmpleadosPresentacion.Consultar();
+                CargarListas();
             }
             catch (Exception ex)
             {
@@ -34,11 +46,24 @@ namespace Front_Supermercado.Pages.Ventanas
             }
         }
 
+        private void CargarListas()
+        {
+            NombrePersona = catalogos.Personas();
+            OpcionesPersona = NombrePersona
+                .Select(x => new SelectListItem(x.Value, x.Key.ToString()))
+                .OrderBy(x => x.Text).ToList();
+            NombreCargo = catalogos.Cargos();
+            OpcionesCargo = NombreCargo
+                .Select(x => new SelectListItem(x.Value, x.Key.ToString()))
+                .OrderBy(x => x.Text).ToList();
+        }
+
         public void OnPostBtNuevo()
         {
             try
             {
                 ModelState.Clear();
+                CargarListas();
                 Nuevo = true;
                 this.Actual = new Empleados();
             }
@@ -81,6 +106,7 @@ namespace Front_Supermercado.Pages.Ventanas
             catch (Exception ex)
             {
                 Nuevo = true;
+                try { CargarListas(); } catch { }
                 Error(ex);
             }
         }

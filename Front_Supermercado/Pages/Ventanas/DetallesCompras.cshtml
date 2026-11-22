@@ -50,12 +50,16 @@
                     <input asp-for="@Model.Actual!.Cantidad" type="number" class="form-control" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Producto (Id)</label>
-                    <input asp-for="@Model.Actual!.Producto" type="number" class="form-control" />
+                    <label class="form-label">Producto</label>
+                    <select asp-for="@Model.Actual!.Producto" asp-items="Model.OpcionesProducto" class="form-select">
+                        <option value="0">-- Seleccione --</option>
+                    </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Compra Proveedor (Id)</label>
-                    <input asp-for="@Model.Actual!.CompraProveedor" type="number" class="form-control" />
+                    <label class="form-label">Compra Proveedor</label>
+                    <select asp-for="@Model.Actual!.CompraProveedor" asp-items="Model.OpcionesCompraProveedor" class="form-select">
+                        <option value="0">-- Seleccione --</option>
+                    </select>
                 </div>
         </div>
     }
@@ -65,11 +69,10 @@
         <div class="containers_vn panel panel-default mt-4">
             <table class="tb_data table table-striped table-bordered table-hover">
                 <tr>
-                    <th>Id</th>
                     <th>Precio Compra</th>
                     <th>Cantidad</th>
-                    <th>Producto (Id)</th>
-                    <th>Compra Proveedor (Id)</th>
+                    <th>Producto</th>
+                    <th>Compra Proveedor</th>
                     <th></th>
                 </tr>
                 @if (Model.Lista != null)
@@ -77,11 +80,10 @@
                     foreach (var elemento in Model.Lista)
                     {
                         <tr>
-                            <td>@elemento.Id</td>
                             <td>@elemento.PrecioCompra</td>
                             <td>@elemento.Cantidad</td>
-                            <td>@elemento.Producto</td>
-                            <td>@elemento.CompraProveedor</td>
+                            <td>@Model.NombreProducto.GetValueOrDefault(elemento.Producto)</td>
+                            <td>@Model.NombreCompraProveedor.GetValueOrDefault(elemento.CompraProveedor)</td>
                             <td>
                                 <button type="submit"
                                     class="btn btn-sm btn-outline-primary"

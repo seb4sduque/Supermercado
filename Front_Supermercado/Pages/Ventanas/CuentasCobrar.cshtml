@@ -50,12 +50,16 @@
                     <input asp-for="@Model.Actual!.EstadoDeuda" class="form-control" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Cliente (Id)</label>
-                    <input asp-for="@Model.Actual!.Cliente" type="number" class="form-control" />
+                    <label class="form-label">Cliente</label>
+                    <select asp-for="@Model.Actual!.Cliente" asp-items="Model.OpcionesCliente" class="form-select">
+                        <option value="0">-- Seleccione --</option>
+                    </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Factura (Id)</label>
-                    <input asp-for="@Model.Actual!.Factura" type="number" class="form-control" />
+                    <label class="form-label">Factura</label>
+                    <select asp-for="@Model.Actual!.Factura" asp-items="Model.OpcionesFactura" class="form-select">
+                        <option value="0">-- Seleccione --</option>
+                    </select>
                 </div>
         </div>
     }
@@ -65,11 +69,10 @@
         <div class="containers_vn panel panel-default mt-4">
             <table class="tb_data table table-striped table-bordered table-hover">
                 <tr>
-                    <th>Id</th>
                     <th>Saldo Pendiente</th>
                     <th>Estado Deuda</th>
-                    <th>Cliente (Id)</th>
-                    <th>Factura (Id)</th>
+                    <th>Cliente</th>
+                    <th>Factura</th>
                     <th></th>
                 </tr>
                 @if (Model.Lista != null)
@@ -77,11 +80,10 @@
                     foreach (var elemento in Model.Lista)
                     {
                         <tr>
-                            <td>@elemento.Id</td>
                             <td>@elemento.SaldoPendiente</td>
                             <td>@elemento.EstadoDeuda</td>
-                            <td>@elemento.Cliente</td>
-                            <td>@elemento.Factura</td>
+                            <td>@Model.NombreCliente.GetValueOrDefault(elemento.Cliente)</td>
+                            <td>@Model.NombreFactura.GetValueOrDefault(elemento.Factura)</td>
                             <td>
                                 <button type="submit"
                                     class="btn btn-sm btn-outline-primary"

@@ -50,12 +50,16 @@
                     <input asp-for="@Model.Actual!.HorasExtras" type="number" class="form-control" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Empleado (Id)</label>
-                    <input asp-for="@Model.Actual!.Empleado" type="number" class="form-control" />
+                    <label class="form-label">Empleado</label>
+                    <select asp-for="@Model.Actual!.Empleado" asp-items="Model.OpcionesEmpleado" class="form-select">
+                        <option value="0">-- Seleccione --</option>
+                    </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Turno (Id)</label>
-                    <input asp-for="@Model.Actual!.Turno" type="number" class="form-control" />
+                    <label class="form-label">Turno</label>
+                    <select asp-for="@Model.Actual!.Turno" asp-items="Model.OpcionesTurno" class="form-select">
+                        <option value="0">-- Seleccione --</option>
+                    </select>
                 </div>
         </div>
     }
@@ -65,11 +69,10 @@
         <div class="containers_vn panel panel-default mt-4">
             <table class="tb_data table table-striped table-bordered table-hover">
                 <tr>
-                    <th>Id</th>
                     <th>Fecha Asignacion</th>
                     <th>Horas Extras</th>
-                    <th>Empleado (Id)</th>
-                    <th>Turno (Id)</th>
+                    <th>Empleado</th>
+                    <th>Turno</th>
                     <th></th>
                 </tr>
                 @if (Model.Lista != null)
@@ -77,11 +80,10 @@
                     foreach (var elemento in Model.Lista)
                     {
                         <tr>
-                            <td>@elemento.Id</td>
                             <td>@elemento.FechaAsignacion.ToString("yyyy-MM-dd HH:mm")</td>
                             <td>@elemento.HorasExtras</td>
-                            <td>@elemento.Empleado</td>
-                            <td>@elemento.Turno</td>
+                            <td>@Model.NombreEmpleado.GetValueOrDefault(elemento.Empleado)</td>
+                            <td>@Model.NombreTurno.GetValueOrDefault(elemento.Turno)</td>
                             <td>
                                 <button type="submit"
                                     class="btn btn-sm btn-outline-primary"

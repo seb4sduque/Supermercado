@@ -1,6 +1,8 @@
 using lib_supermercado.entidades;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Front_Supermercado.Nucleo;
 using Presentacion_Supermercado.interfaces;
 
 namespace Front_Supermercado.Pages.Ventanas
@@ -8,11 +10,20 @@ namespace Front_Supermercado.Pages.Ventanas
     public class DetallesFacturasModel : PageModel
     {
         private IDetallesFacturasPresentacion IDetallesFacturasPresentacion;
+        private Catalogos catalogos;
 
-        public DetallesFacturasModel(IDetallesFacturasPresentacion IDetallesFacturasPresentacion)
+        public DetallesFacturasModel(IDetallesFacturasPresentacion IDetallesFacturasPresentacion,
+            Catalogos catalogos)
         {
             this.IDetallesFacturasPresentacion = IDetallesFacturasPresentacion;
+            this.catalogos = catalogos;
         }
+
+        // Nombres para mostrar y listas desplegables (el usuario no ve los Id)
+        public Dictionary<int, string> NombreFactura { get; set; } = new();
+        public List<SelectListItem> OpcionesFactura { get; set; } = new();
+        public Dictionary<int, string> NombreProducto { get; set; } = new();
+        public List<SelectListItem> OpcionesProducto { get; set; } = new();
 
         public List<DetallesFacturas>? Lista { get; set; }
         [BindProperty] public DetallesFacturas? Actual { get; set; }
@@ -27,6 +38,7 @@ namespace Front_Supermercado.Pages.Ventanas
             try
             {
                 Lista = this.IDetallesFacturasPresentacion.Consultar();
+                CargarListas();
             }
             catch (Exception ex)
             {
@@ -34,11 +46,24 @@ namespace Front_Supermercado.Pages.Ventanas
             }
         }
 
+        private void CargarListas()
+        {
+            NombreFactura = catalogos.Facturas();
+            OpcionesFactura = NombreFactura
+                .Select(x => new SelectListItem(x.Value, x.Key.ToString()))
+                .OrderBy(x => x.Text).ToList();
+            NombreProducto = catalogos.Productos();
+            OpcionesProducto = NombreProducto
+                .Select(x => new SelectListItem(x.Value, x.Key.ToString()))
+                .OrderBy(x => x.Text).ToList();
+        }
+
         public void OnPostBtNuevo()
         {
             try
             {
                 ModelState.Clear();
+                CargarListas();
                 Nuevo = true;
                 this.Actual = new DetallesFacturas();
             }
@@ -81,6 +106,7 @@ namespace Front_Supermercado.Pages.Ventanas
             catch (Exception ex)
             {
                 Nuevo = true;
+                try { CargarListas(); } catch { }
                 Error(ex);
             }
         }
