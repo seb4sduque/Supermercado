@@ -29,3 +29,131 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+/* ===== Paleta azul y blanco ===== */
+:root {
+  --azul-oscuro: #0b3d91;
+  --azul: #1b6ec2;
+  --azul-claro: #eaf2fc;
+}
+
+body {
+  background-color: #f5f8fd;
+}
+
+/* Barra de navegación */
+.navbar-azul {
+  background-color: var(--azul-oscuro);
+}
+
+.navbar-azul .navbar-brand {
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: .5px;
+}
+
+.navbar-azul .nav-link {
+  color: rgba(255, 255, 255, .85);
+}
+
+.navbar-azul .nav-link:hover,
+.navbar-azul .nav-link:focus,
+.navbar-azul .nav-link.show {
+  color: #fff;
+}
+
+.navbar-azul .dropdown-item:hover,
+.navbar-azul .dropdown-item:focus {
+  background-color: var(--azul-claro);
+  color: var(--azul-oscuro);
+}
+
+/* Titulos */
+h1.display-4, h3 {
+  color: var(--azul-oscuro);
+}
+
+/* Botones */
+.btn-secondary {
+  color: #fff;
+  background-color: var(--azul-oscuro);
+  border-color: var(--azul-oscuro);
+}
+
+.btn-secondary:hover, .btn-secondary:focus {
+  color: #fff;
+  background-color: var(--azul);
+  border-color: var(--azul);
+}
+
+.btn-outline-secondary {
+  color: var(--azul-oscuro);
+  border-color: var(--azul-oscuro);
+}
+
+.btn-outline-secondary:hover {
+  color: #fff;
+  background-color: var(--azul-oscuro);
+  border-color: var(--azul-oscuro);
+}
+
+.btn-outline-primary {
+  color: var(--azul);
+  border-color: var(--azul);
+}
+
+.btn-outline-primary:hover {
+  color: #fff;
+  background-color: var(--azul);
+  border-color: var(--azul);
+}
+
+/* Tablas */
+.tb_data {
+  background-color: #fff;
+}
+
+.tb_data th {
+  background-color: var(--azul-oscuro) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+.tb_data tr:hover td {
+  background-color: var(--azul-claro);
+}
+
+/* Imagenes de los productos */
+img[src^="data:image"] {
+  object-fit: cover;
+  border-radius: .5rem;
+  border: 1px solid #cfe0f5;
+}
+
+/* Login */
+.login-card {
+  border: 0;
+  border-top: 5px solid var(--azul-oscuro);
+}
+
+/* Tarjetas del inicio */
+.card-modulo {
+  border: 0;
+  border-left: 5px solid var(--azul);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.card-modulo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 .5rem 1rem rgba(11, 61, 145, .15);
+}
+
+.card-modulo .card-title {
+  color: var(--azul-oscuro);
+  font-weight: 600;
+}
+
+/* Pie de pagina */
+.footer {
+  background-color: #fff;
+}

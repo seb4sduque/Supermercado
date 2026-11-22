@@ -1,3 +1,4 @@
+@using Microsoft.AspNetCore.Http
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,20 +12,22 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark navbar-azul box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Front_Supermercado</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Supermercado</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    @if (!string.IsNullOrEmpty(Context.Session.GetString("Usuario")))
+                    {
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Personas</a>
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Personas</a>
                             <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Personas">Personas</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Clientes">Clientes</a></li>
@@ -32,7 +35,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Empleados</a>
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Empleados</a>
                             <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Empleados">Empleados</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Cargos">Cargos</a></li>
@@ -42,7 +45,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
                             <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Categorias">Categorías</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Subcategorias">Subcategorías</a></li>
@@ -50,7 +53,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inventario</a>
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inventario</a>
                             <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Bodegas">Bodegas</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Inventarios">Inventarios</a></li>
@@ -58,7 +61,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ventas</a>
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ventas</a>
                             <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Facturas">Facturas</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/DetallesFacturas">Detalles de facturas</a></li>
@@ -67,16 +70,17 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Compras</a>
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Compras</a>
                             <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/ComprasProveedores">Compras a proveedores</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/DetallesCompras">Detalles de compras</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                     </ul>
+                    }
                 </div>
             </div>
         </nav>
@@ -89,7 +93,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2026 - Front_Supermercado - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2026 - Supermercado - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
