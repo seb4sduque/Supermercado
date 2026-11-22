@@ -1,0 +1,103 @@
+@page
+@model ProgramacionTurnosModel
+@{
+    ViewData["Title"] = "Programación de turnos";
+}
+<form method="post">
+
+    <div class="text-center">
+        <h1 class="display-4">Programación de turnos</h1>
+        <div>
+            <input type="submit"
+                value="Consultar"
+                class="btn btn-secondary"
+                asp-page-handler="BtConsultar" />
+            <input type="submit"
+                value="Nuevo"
+                class="btn btn-secondary"
+                asp-page-handler="BtNuevo" />
+            @if (Model.Nuevo)
+            {
+                <input type="submit"
+                    value="Guardar"
+                    class="btn btn-primary"
+                    asp-page-handler="BtGuardar" />
+                <input type="submit"
+                    value="Cancelar"
+                    class="btn btn-outline-secondary"
+                    asp-page-handler="BtCancelar" />
+            }
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.Mensaje))
+    {
+        <div class="alert @(Model.EsError ? "alert-danger" : "alert-success") mt-3">@Model.Mensaje</div>
+    }
+
+    @if (Model.Nuevo && Model.Actual != null)
+    {
+        <div class="mt-3">
+            <h3>Programación de turno</h3>
+            <input type="hidden" asp-for="@Model.Actual!.Id" />
+
+                <div class="mb-3">
+                    <label class="form-label">Fecha Asignacion</label>
+                    <input asp-for="@Model.Actual!.FechaAsignacion" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Horas Extras</label>
+                    <input asp-for="@Model.Actual!.HorasExtras" type="number" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Empleado (Id)</label>
+                    <input asp-for="@Model.Actual!.Empleado" type="number" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Turno (Id)</label>
+                    <input asp-for="@Model.Actual!.Turno" type="number" class="form-control" />
+                </div>
+        </div>
+    }
+
+    @if (!Model.Nuevo)
+    {
+        <div class="containers_vn panel panel-default mt-4">
+            <table class="tb_data table table-striped table-bordered table-hover">
+                <tr>
+                    <th>Id</th>
+                    <th>Fecha Asignacion</th>
+                    <th>Horas Extras</th>
+                    <th>Empleado (Id)</th>
+                    <th>Turno (Id)</th>
+                    <th></th>
+                </tr>
+                @if (Model.Lista != null)
+                {
+                    foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>@elemento.Id</td>
+                            <td>@elemento.FechaAsignacion.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@elemento.HorasExtras</td>
+                            <td>@elemento.Empleado</td>
+                            <td>@elemento.Turno</td>
+                            <td>
+                                <button type="submit"
+                                    class="btn btn-sm btn-outline-primary"
+                                    asp-page-handler="BtModificar"
+                                    asp-route-id="@elemento.Id">Modificar</button>
+                                <button type="submit"
+                                    class="btn btn-sm btn-outline-danger"
+                                    asp-page-handler="BtBorrar"
+                                    asp-route-id="@elemento.Id"
+                                    onclick="return confirm('¿Borrar este registro?');">Borrar</button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    }
+
+</form>

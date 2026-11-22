@@ -1,0 +1,115 @@
+@page
+@model FacturasModel
+@{
+    ViewData["Title"] = "Facturas";
+}
+<form method="post">
+
+    <div class="text-center">
+        <h1 class="display-4">Facturas</h1>
+        <div>
+            <input type="submit"
+                value="Consultar"
+                class="btn btn-secondary"
+                asp-page-handler="BtConsultar" />
+            <input type="submit"
+                value="Nuevo"
+                class="btn btn-secondary"
+                asp-page-handler="BtNuevo" />
+            @if (Model.Nuevo)
+            {
+                <input type="submit"
+                    value="Guardar"
+                    class="btn btn-primary"
+                    asp-page-handler="BtGuardar" />
+                <input type="submit"
+                    value="Cancelar"
+                    class="btn btn-outline-secondary"
+                    asp-page-handler="BtCancelar" />
+            }
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.Mensaje))
+    {
+        <div class="alert @(Model.EsError ? "alert-danger" : "alert-success") mt-3">@Model.Mensaje</div>
+    }
+
+    @if (Model.Nuevo && Model.Actual != null)
+    {
+        <div class="mt-3">
+            <h3>Factura</h3>
+            <input type="hidden" asp-for="@Model.Actual!.Id" />
+
+                <div class="mb-3">
+                    <label class="form-label">Fecha Hora</label>
+                    <input asp-for="@Model.Actual!.FechaHora" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Total Pagar</label>
+                    <input asp-for="@Model.Actual!.TotalPagar" type="number" step="any" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Estado</label>
+                    <input asp-for="@Model.Actual!.Estado" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Cliente (Id)</label>
+                    <input asp-for="@Model.Actual!.Cliente" type="number" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Empleado (Id)</label>
+                    <input asp-for="@Model.Actual!.Empleado" type="number" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Metodo Pago (Id)</label>
+                    <input asp-for="@Model.Actual!.MetodoPago" type="number" class="form-control" />
+                </div>
+        </div>
+    }
+
+    @if (!Model.Nuevo)
+    {
+        <div class="containers_vn panel panel-default mt-4">
+            <table class="tb_data table table-striped table-bordered table-hover">
+                <tr>
+                    <th>Id</th>
+                    <th>Fecha Hora</th>
+                    <th>Total Pagar</th>
+                    <th>Estado</th>
+                    <th>Cliente (Id)</th>
+                    <th>Empleado (Id)</th>
+                    <th>Metodo Pago (Id)</th>
+                    <th></th>
+                </tr>
+                @if (Model.Lista != null)
+                {
+                    foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>@elemento.Id</td>
+                            <td>@elemento.FechaHora.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@elemento.TotalPagar</td>
+                            <td>@elemento.Estado</td>
+                            <td>@elemento.Cliente</td>
+                            <td>@elemento.Empleado</td>
+                            <td>@elemento.MetodoPago</td>
+                            <td>
+                                <button type="submit"
+                                    class="btn btn-sm btn-outline-primary"
+                                    asp-page-handler="BtModificar"
+                                    asp-route-id="@elemento.Id">Modificar</button>
+                                <button type="submit"
+                                    class="btn btn-sm btn-outline-danger"
+                                    asp-page-handler="BtBorrar"
+                                    asp-route-id="@elemento.Id"
+                                    onclick="return confirm('¿Borrar este registro?');">Borrar</button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    }
+
+</form>

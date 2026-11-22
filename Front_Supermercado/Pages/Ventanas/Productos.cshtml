@@ -1,0 +1,103 @@
+@page
+@model ProductosModel
+@{
+    ViewData["Title"] = "Productos";
+}
+<form method="post">
+
+    <div class="text-center">
+        <h1 class="display-4">Productos</h1>
+        <div>
+            <input type="submit"
+                value="Consultar"
+                class="btn btn-secondary"
+                asp-page-handler="BtConsultar" />
+            <input type="submit"
+                value="Nuevo"
+                class="btn btn-secondary"
+                asp-page-handler="BtNuevo" />
+            @if (Model.Nuevo)
+            {
+                <input type="submit"
+                    value="Guardar"
+                    class="btn btn-primary"
+                    asp-page-handler="BtGuardar" />
+                <input type="submit"
+                    value="Cancelar"
+                    class="btn btn-outline-secondary"
+                    asp-page-handler="BtCancelar" />
+            }
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.Mensaje))
+    {
+        <div class="alert @(Model.EsError ? "alert-danger" : "alert-success") mt-3">@Model.Mensaje</div>
+    }
+
+    @if (Model.Nuevo && Model.Actual != null)
+    {
+        <div class="mt-3">
+            <h3>Producto</h3>
+            <input type="hidden" asp-for="@Model.Actual!.Id" />
+
+                <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input asp-for="@Model.Actual!.Nombre" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Precio</label>
+                    <input asp-for="@Model.Actual!.Precio" type="number" step="any" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Codigo Barras</label>
+                    <input asp-for="@Model.Actual!.CodigoBarras" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Subcategoria (Id)</label>
+                    <input asp-for="@Model.Actual!.Subcategoria" type="number" class="form-control" />
+                </div>
+        </div>
+    }
+
+    @if (!Model.Nuevo)
+    {
+        <div class="containers_vn panel panel-default mt-4">
+            <table class="tb_data table table-striped table-bordered table-hover">
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Codigo Barras</th>
+                    <th>Subcategoria (Id)</th>
+                    <th></th>
+                </tr>
+                @if (Model.Lista != null)
+                {
+                    foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>@elemento.Id</td>
+                            <td>@elemento.Nombre</td>
+                            <td>@elemento.Precio</td>
+                            <td>@elemento.CodigoBarras</td>
+                            <td>@elemento.Subcategoria</td>
+                            <td>
+                                <button type="submit"
+                                    class="btn btn-sm btn-outline-primary"
+                                    asp-page-handler="BtModificar"
+                                    asp-route-id="@elemento.Id">Modificar</button>
+                                <button type="submit"
+                                    class="btn btn-sm btn-outline-danger"
+                                    asp-page-handler="BtBorrar"
+                                    asp-route-id="@elemento.Id"
+                                    onclick="return confirm('¿Borrar este registro?');">Borrar</button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    }
+
+</form>

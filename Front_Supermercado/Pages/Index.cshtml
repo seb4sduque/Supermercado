@@ -1,10 +1,87 @@
-﻿@page
+@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Inicio";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Supermercado</h1>
+    <p>Selecciona un módulo para administrar su información.</p>
+</div>
+
+<div class="row mt-4">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Personas</h5>
+                    <ul class="list-unstyled mb-0">
+                    <li><a asp-page="/Ventanas/Personas">Personas</a></li>
+                    <li><a asp-page="/Ventanas/Clientes">Clientes</a></li>
+                    <li><a asp-page="/Ventanas/Proveedores">Proveedores</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Empleados</h5>
+                    <ul class="list-unstyled mb-0">
+                    <li><a asp-page="/Ventanas/Empleados">Empleados</a></li>
+                    <li><a asp-page="/Ventanas/Cargos">Cargos</a></li>
+                    <li><a asp-page="/Ventanas/Turnos">Turnos</a></li>
+                    <li><a asp-page="/Ventanas/ProgramacionTurnos">Programación de turnos</a></li>
+                    <li><a asp-page="/Ventanas/SueldoEmpleados">Sueldos de empleados</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Productos</h5>
+                    <ul class="list-unstyled mb-0">
+                    <li><a asp-page="/Ventanas/Categorias">Categorías</a></li>
+                    <li><a asp-page="/Ventanas/Subcategorias">Subcategorías</a></li>
+                    <li><a asp-page="/Ventanas/Productos">Productos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Inventario</h5>
+                    <ul class="list-unstyled mb-0">
+                    <li><a asp-page="/Ventanas/Bodegas">Bodegas</a></li>
+                    <li><a asp-page="/Ventanas/Inventarios">Inventarios</a></li>
+                    <li><a asp-page="/Ventanas/MovimientosInventarios">Movimientos de inventarios</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Ventas</h5>
+                    <ul class="list-unstyled mb-0">
+                    <li><a asp-page="/Ventanas/Facturas">Facturas</a></li>
+                    <li><a asp-page="/Ventanas/DetallesFacturas">Detalles de facturas</a></li>
+                    <li><a asp-page="/Ventanas/MetodosPago">Métodos de pago</a></li>
+                    <li><a asp-page="/Ventanas/CuentasCobrar">Cuentas por cobrar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Compras</h5>
+                    <ul class="list-unstyled mb-0">
+                    <li><a asp-page="/Ventanas/ComprasProveedores">Compras a proveedores</a></li>
+                    <li><a asp-page="/Ventanas/DetallesCompras">Detalles de compras</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 </div>
