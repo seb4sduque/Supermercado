@@ -3,9 +3,11 @@ using lib_supermercado.interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddControllers(opciones =>
+{
 
-builder.Services.AddControllers();
+    opciones.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+});
 builder.Services.AddScoped<IConexion, Conexion>();
 builder.Services.AddScoped<IBodegasAplicaciones, BodegasLogica>();
 builder.Services.AddScoped<ICargosAplicaciones, CargosLogica>();
@@ -30,7 +32,6 @@ builder.Services.AddScoped<ITurnosAplicaciones, TurnosLogica>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
 
