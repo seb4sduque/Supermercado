@@ -54,16 +54,22 @@
                     <input asp-for="@Model.Actual!.Estado" class="form-control" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Cliente (Id)</label>
-                    <input asp-for="@Model.Actual!.Cliente" type="number" class="form-control" />
+                    <label class="form-label">Cliente</label>
+                    <select asp-for="@Model.Actual!.Cliente" asp-items="Model.Clientes" class="form-select">
+                        <option value="0">-- Seleccione --</option>
+                    </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Empleado (Id)</label>
-                    <input asp-for="@Model.Actual!.Empleado" type="number" class="form-control" />
+                    <label class="form-label">Empleado</label>
+                    <select asp-for="@Model.Actual!.Empleado" asp-items="Model.Empleados" class="form-select">
+                        <option value="0">-- Seleccione --</option>
+                    </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Metodo Pago (Id)</label>
-                    <input asp-for="@Model.Actual!.MetodoPago" type="number" class="form-control" />
+                    <label class="form-label">Metodo Pago</label>
+                    <select asp-for="@Model.Actual!.MetodoPago" asp-items="Model.MetodosPago" class="form-select">
+                        <option value="0">-- Seleccione --</option>
+                    </select>
                 </div>
         </div>
     }
@@ -73,13 +79,12 @@
         <div class="containers_vn panel panel-default mt-4">
             <table class="tb_data table table-striped table-bordered table-hover">
                 <tr>
-                    <th>Id</th>
                     <th>Fecha Hora</th>
                     <th>Total Pagar</th>
                     <th>Estado</th>
-                    <th>Cliente (Id)</th>
-                    <th>Empleado (Id)</th>
-                    <th>Metodo Pago (Id)</th>
+                    <th>Cliente</th>
+                    <th>Empleado</th>
+                    <th>Metodo Pago</th>
                     <th></th>
                 </tr>
                 @if (Model.Lista != null)
@@ -87,13 +92,12 @@
                     foreach (var elemento in Model.Lista)
                     {
                         <tr>
-                            <td>@elemento.Id</td>
                             <td>@elemento.FechaHora.ToString("yyyy-MM-dd HH:mm")</td>
                             <td>@elemento.TotalPagar</td>
                             <td>@elemento.Estado</td>
-                            <td>@elemento.Cliente</td>
-                            <td>@elemento.Empleado</td>
-                            <td>@elemento.MetodoPago</td>
+                            <td>@Model.NombreCliente.GetValueOrDefault(elemento.Cliente)</td>
+                            <td>@Model.NombreEmpleado.GetValueOrDefault(elemento.Empleado)</td>
+                            <td>@Model.NombreMetodoPago.GetValueOrDefault(elemento.MetodoPago)</td>
                             <td>
                                 <button type="submit"
                                     class="btn btn-sm btn-outline-primary"
