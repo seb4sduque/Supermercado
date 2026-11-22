@@ -1,5 +1,6 @@
 ﻿using lib_supermercado.entidades;
 using lib_supermercado.interfaces;
+using lib_supermercado.Nucleo;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,8 @@ namespace lib_supermercado.implementaciones
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(this.StringConexion!, p => { });
+            optionsBuilder.UseSqlServer(
+                this.StringConexion ?? Datosgenerales.ObtenerStringConexion(), p => { });
             optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         }
 
