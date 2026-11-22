@@ -1,7 +1,6 @@
 using lib_supermercado.entidades;
 using Presentacion_Supermercado.interfaces;
 
-
 namespace Presentacion_Supermercado.implementaciones
 {
     public class ProductosPresentacion : IProductosPresentacion
@@ -25,8 +24,8 @@ namespace Presentacion_Supermercado.implementaciones
         public List<Productos> Consultar()
         {
             var task = this.Icomunicaciones.Ejecutar<List<Productos>>(
-               "Productos/Consultar",
-               null);
+                "Productos/Consultar",
+                null!);
             task.Wait();
             return task.Result;
         }
@@ -39,7 +38,6 @@ namespace Presentacion_Supermercado.implementaciones
             task.Wait();
             return task.Result;
         }
-        
 
         public Productos Borrar(Productos entidad)
         {
@@ -50,4 +48,4 @@ namespace Presentacion_Supermercado.implementaciones
             return task.Result;
         }
     }
-}   
+}

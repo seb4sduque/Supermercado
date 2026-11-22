@@ -1,7 +1,6 @@
 using lib_supermercado.entidades;
 using Presentacion_Supermercado.interfaces;
 
-
 namespace Presentacion_Supermercado.implementaciones
 {
     public class MetodosPagoPresentacion : IMetodosPagoPresentacion
@@ -26,7 +25,7 @@ namespace Presentacion_Supermercado.implementaciones
         {
             var task = this.Icomunicaciones.Ejecutar<List<MetodosPago>>(
                 "MetodosPago/Consultar",
-                null);
+                null!);
             task.Wait();
             return task.Result;
         }
@@ -38,7 +37,6 @@ namespace Presentacion_Supermercado.implementaciones
                 entidad);
             task.Wait();
             return task.Result;
-            
         }
 
         public MetodosPago Borrar(MetodosPago entidad)

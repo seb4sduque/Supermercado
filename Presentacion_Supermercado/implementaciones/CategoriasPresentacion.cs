@@ -1,8 +1,11 @@
 using lib_supermercado.entidades;
+using lib_supermercado.interfaces;
+using Microsoft.EntityFrameworkCore;
 using Presentacion_Supermercado.interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
-
-namespace lib_supermercado.implementaciones
+namespace Presentacion_Supermercado.implementaciones
 {
     public class CategoriasPresentacion : ICategoriasPresentacion
     {

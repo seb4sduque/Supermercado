@@ -1,7 +1,6 @@
 using lib_supermercado.entidades;
 using Presentacion_Supermercado.interfaces;
 
-
 namespace Presentacion_Supermercado.implementaciones
 {
     public class ProgramacionTurnosPresentacion : IProgramacionTurnosPresentacion
@@ -16,8 +15,8 @@ namespace Presentacion_Supermercado.implementaciones
         public ProgramacionTurnos Insertar(ProgramacionTurnos entidad)
         {
             var task = this.Icomunicaciones.Ejecutar<ProgramacionTurnos>(
-                 "ProgramacionTurnos/Insertar",
-                 entidad);
+                "ProgramacionTurnos/Insertar",
+                entidad);
             task.Wait();
             return task.Result;
         }
@@ -26,7 +25,7 @@ namespace Presentacion_Supermercado.implementaciones
         {
             var task = this.Icomunicaciones.Ejecutar<List<ProgramacionTurnos>>(
                 "ProgramacionTurnos/Consultar",
-                null);
+                null!);
             task.Wait();
             return task.Result;
         }

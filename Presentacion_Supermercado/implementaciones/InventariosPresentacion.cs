@@ -1,11 +1,9 @@
 using lib_supermercado.entidades;
-using lib_supermercado.interfaces;
 using Presentacion_Supermercado.interfaces;
-
 
 namespace Presentacion_Supermercado.implementaciones
 {
-    public class InventariosPresentacion : IInventariosAplicaciones
+    public class InventariosPresentacion : IInventariosPresentacion
     {
         private IComunicaciones Icomunicaciones;
 
@@ -17,8 +15,8 @@ namespace Presentacion_Supermercado.implementaciones
         public Inventarios Insertar(Inventarios entidad)
         {
             var task = this.Icomunicaciones.Ejecutar<Inventarios>(
-               "Inventarios/Insertar",
-               entidad);
+                "Inventarios/Insertar",
+                entidad);
             task.Wait();
             return task.Result;
         }
@@ -27,7 +25,7 @@ namespace Presentacion_Supermercado.implementaciones
         {
             var task = this.Icomunicaciones.Ejecutar<List<Inventarios>>(
                 "Inventarios/Consultar",
-                null);
+                null!);
             task.Wait();
             return task.Result;
         }

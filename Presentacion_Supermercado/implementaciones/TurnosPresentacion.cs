@@ -1,7 +1,6 @@
 using lib_supermercado.entidades;
 using Presentacion_Supermercado.interfaces;
 
-
 namespace Presentacion_Supermercado.implementaciones
 {
     public class TurnosPresentacion : ITurnosPresentacion
@@ -16,8 +15,8 @@ namespace Presentacion_Supermercado.implementaciones
         public Turnos Insertar(Turnos entidad)
         {
             var task = this.Icomunicaciones.Ejecutar<Turnos>(
-                 "Turnos/Insertar",
-                 entidad);
+                "Turnos/Insertar",
+                entidad);
             task.Wait();
             return task.Result;
         }
@@ -26,7 +25,7 @@ namespace Presentacion_Supermercado.implementaciones
         {
             var task = this.Icomunicaciones.Ejecutar<List<Turnos>>(
                 "Turnos/Consultar",
-                null);
+                null!);
             task.Wait();
             return task.Result;
         }
@@ -43,8 +42,8 @@ namespace Presentacion_Supermercado.implementaciones
         public Turnos Borrar(Turnos entidad)
         {
             var task = this.Icomunicaciones.Ejecutar<Turnos>(
-                  "Turnos/Borrar",
-                  entidad);
+                "Turnos/Borrar",
+                entidad);
             task.Wait();
             return task.Result;
         }

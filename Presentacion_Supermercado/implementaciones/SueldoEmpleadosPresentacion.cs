@@ -1,7 +1,6 @@
 using lib_supermercado.entidades;
 using Presentacion_Supermercado.interfaces;
 
-
 namespace Presentacion_Supermercado.implementaciones
 {
     public class SueldoEmpleadosPresentacion : ISueldoEmpleadosPresentacion
@@ -16,8 +15,8 @@ namespace Presentacion_Supermercado.implementaciones
         public SueldoEmpleados Insertar(SueldoEmpleados entidad)
         {
             var task = this.Icomunicaciones.Ejecutar<SueldoEmpleados>(
-                 "SueldoEmpleados/Insertar",
-                 entidad);
+                "SueldoEmpleados/Insertar",
+                entidad);
             task.Wait();
             return task.Result;
         }
@@ -26,7 +25,7 @@ namespace Presentacion_Supermercado.implementaciones
         {
             var task = this.Icomunicaciones.Ejecutar<List<SueldoEmpleados>>(
                 "SueldoEmpleados/Consultar",
-                null);
+                null!);
             task.Wait();
             return task.Result;
         }

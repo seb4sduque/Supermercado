@@ -1,10 +1,9 @@
 using lib_supermercado.entidades;
-using lib_supermercado.interfaces;
 using Presentacion_Supermercado.interfaces;
 
 namespace Presentacion_Supermercado.implementaciones
 {
-    public class ProveedoresPresentacion : IProveedoresAplicaciones
+    public class ProveedoresPresentacion : IProveedoresPresentacion
     {
         private IComunicaciones Icomunicaciones;
 
@@ -16,8 +15,8 @@ namespace Presentacion_Supermercado.implementaciones
         public Proveedores Insertar(Proveedores entidad)
         {
             var task = this.Icomunicaciones.Ejecutar<Proveedores>(
-                 "Proveedores/Insertar",
-                 entidad);
+                "Proveedores/Insertar",
+                entidad);
             task.Wait();
             return task.Result;
         }
@@ -26,7 +25,7 @@ namespace Presentacion_Supermercado.implementaciones
         {
             var task = this.Icomunicaciones.Ejecutar<List<Proveedores>>(
                 "Proveedores/Consultar",
-                null);
+                null!);
             task.Wait();
             return task.Result;
         }

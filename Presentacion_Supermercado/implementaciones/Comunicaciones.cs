@@ -1,4 +1,4 @@
-﻿using Presentacion_Supermercado.interfaces;
+using Presentacion_Supermercado.interfaces;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -8,7 +8,7 @@ namespace Presentacion_Supermercado.implementaciones
     {
         public async Task<T> Ejecutar<T>(string url, object entidad)
         {
-            url = "http://localhost:5209/" + url;
+            url = "http://localhost:5041/" + url;
 
             var body = new StringContent(
                 JsonConvert.SerializeObject(entidad), 

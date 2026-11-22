@@ -1,7 +1,6 @@
 using lib_supermercado.entidades;
 using Presentacion_Supermercado.interfaces;
 
-
 namespace Presentacion_Supermercado.implementaciones
 {
     public class PersonasPresentacion : IPersonasPresentacion
@@ -12,6 +11,7 @@ namespace Presentacion_Supermercado.implementaciones
         {
             this.Icomunicaciones = Icomunicacion;
         }
+
         public Personas Insertar(Personas entidad)
         {
             var task = this.Icomunicaciones.Ejecutar<Personas>(
@@ -19,14 +19,13 @@ namespace Presentacion_Supermercado.implementaciones
                 entidad);
             task.Wait();
             return task.Result;
-
         }
 
         public List<Personas> Consultar()
         {
             var task = this.Icomunicaciones.Ejecutar<List<Personas>>(
                 "Personas/Consultar",
-                null);
+                null!);
             task.Wait();
             return task.Result;
         }

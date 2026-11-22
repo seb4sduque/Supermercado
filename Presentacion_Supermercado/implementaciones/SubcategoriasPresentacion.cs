@@ -1,7 +1,6 @@
 using lib_supermercado.entidades;
 using Presentacion_Supermercado.interfaces;
 
-
 namespace Presentacion_Supermercado.implementaciones
 {
     public class SubcategoriasPresentacion : ISubcategoriasPresentacion
@@ -16,8 +15,8 @@ namespace Presentacion_Supermercado.implementaciones
         public Subcategorias Insertar(Subcategorias entidad)
         {
             var task = this.Icomunicaciones.Ejecutar<Subcategorias>(
-                 "Subcategorias/Insertar",
-                 entidad);
+                "Subcategorias/Insertar",
+                entidad);
             task.Wait();
             return task.Result;
         }
@@ -26,7 +25,7 @@ namespace Presentacion_Supermercado.implementaciones
         {
             var task = this.Icomunicaciones.Ejecutar<List<Subcategorias>>(
                 "Subcategorias/Consultar",
-                null);
+                null!);
             task.Wait();
             return task.Result;
         }

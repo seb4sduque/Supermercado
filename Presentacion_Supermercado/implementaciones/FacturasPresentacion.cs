@@ -1,7 +1,6 @@
 using lib_supermercado.entidades;
 using Presentacion_Supermercado.interfaces;
 
-
 namespace Presentacion_Supermercado.implementaciones
 {
     public class FacturasPresentacion : IFacturasPresentacion
@@ -26,7 +25,7 @@ namespace Presentacion_Supermercado.implementaciones
         {
             var task = this.Icomunicaciones.Ejecutar<List<Facturas>>(
                 "Facturas/Consultar",
-                null);
+                null!);
             task.Wait();
             return task.Result;
         }
@@ -38,8 +37,7 @@ namespace Presentacion_Supermercado.implementaciones
                 entidad);
             task.Wait();
             return task.Result;
-        }   
-            
+        }
 
         public Facturas Borrar(Facturas entidad)
         {
