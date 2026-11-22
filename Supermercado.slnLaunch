@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Nuevo perfil",
+    "Projects": [
+      {
+        "Path": "ASP_Supermercado\\ASP_Supermercado.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Front_Supermercado\\Front_Supermercado.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

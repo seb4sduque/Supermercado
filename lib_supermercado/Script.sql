@@ -94,6 +94,7 @@ CREATE TABLE Productos (
     Precio DECIMAL(18,2) NOT NULL,
     CodigoBarras NVARCHAR(100) NOT NULL,
     Subcategoria INT NOT NULL,
+    Imagen NVARCHAR(MAX) NULL,
     CONSTRAINT FK_Productos_Subcategorias FOREIGN KEY (Subcategoria) REFERENCES Subcategorias(Id)
 );
 

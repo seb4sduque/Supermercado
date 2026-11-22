@@ -25,6 +25,7 @@ namespace Front_Supermercado.Pages.Ventanas
 
         public List<Productos>? Lista { get; set; }
         [BindProperty] public Productos? Actual { get; set; }
+        [BindProperty] public IFormFile? FormFile { get; set; }
         [BindProperty] public bool Nuevo { get; set; } = false;
         public string? Mensaje { get; set; }
         public bool EsError { get; set; } = false;
@@ -35,6 +36,13 @@ namespace Front_Supermercado.Pages.Ventanas
         {
             try
             {
+                var variable_session = HttpContext.Session.GetString("Usuario");
+                if (String.IsNullOrEmpty(variable_session))
+                {
+                    HttpContext.Response.Redirect("/");
+                    return;
+                }
+
                 Lista = this.IProductosPresentacion.Consultar();
                 CargarListas();
             }
@@ -86,6 +94,14 @@ namespace Front_Supermercado.Pages.Ventanas
         {
             try
             {
+                if (FormFile != null)
+                {
+                    var memoryStream = new MemoryStream();
+                    FormFile.CopyToAsync(memoryStream).Wait();
+                    this.Actual!.Imagen = Convert.ToBase64String(memoryStream.ToArray());
+                    memoryStream.Dispose();
+                }
+
                 if (this.Actual!.Id == 0)
                     this.Actual = this.IProductosPresentacion.Insertar(this.Actual!);
                 else

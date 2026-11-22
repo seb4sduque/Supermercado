@@ -12,6 +12,7 @@ namespace lib_supermercado.entidades
         public decimal Precio { get; set; }
         public string CodigoBarras { get; set; }
         public int Subcategoria { get; set; }
+        public string? Imagen { get; set; }
 
         [ForeignKey("Subcategoria")]
         public Subcategorias _Subcategoria { get; set; }

@@ -8,6 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+});
+
 builder.Services.AddScoped<IComunicaciones, Comunicaciones>();
 builder.Services.AddScoped<Catalogos>();
 builder.Services.AddScoped<IBodegasPresentacion, BodegasPresentacion>();
@@ -51,6 +56,7 @@ app.UseRequestLocalization(new RequestLocalizationOptions
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseSession();
 app.UseAuthorization();
 app.MapStaticAssets();
 app.MapRazorPages()

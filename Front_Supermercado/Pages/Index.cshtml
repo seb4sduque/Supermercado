@@ -3,85 +3,138 @@
 @{
     ViewData["Title"] = "Inicio";
 }
+@if (!Model.EstaLogueado)
+{
+    <div class="container"
+         align="left"
+         style="width:100%">
+        <h3>
+            Login
+        </h3>
 
-<div class="text-center">
-    <h1 class="display-4">Supermercado</h1>
-    <p>Selecciona un módulo para administrar su información.</p>
-</div>
+        @if (!string.IsNullOrEmpty(Model.Mensaje))
+        {
+            <div class="alert alert-danger">@Model.Mensaje</div>
+        }
 
-<div class="row mt-4">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Personas</h5>
-                    <ul class="list-unstyled mb-0">
-                    <li><a asp-page="/Ventanas/Personas">Personas</a></li>
-                    <li><a asp-page="/Ventanas/Clientes">Clientes</a></li>
-                    <li><a asp-page="/Ventanas/Proveedores">Proveedores</a></li>
-                    </ul>
+        <form method="POST">
+            <div style="width:60%">
+                <div class="form-group">
+                    <label class="control-label">
+                        Usuario:
+                    </label>
+                    <input asp-for="@Model.Email"
+                           class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">
+                        Contraseña:
+                    </label>
+                    <input type="password"
+                           asp-for="@Model.Contraseña"
+                           class="form-control" />
+                </div>
+
+                <input type="submit"
+                       value="Limpiar"
+                       asp-page-handler="BtClean"
+                       class="btn btn-secondary" />
+                <input type="submit"
+                       value="Entrar"
+                       asp-page-handler="BtEnter"
+                       class="btn btn-secondary" />
+            </div>
+        </form>
+    </div>
+}
+else
+{
+    <form method="POST" class="text-end">
+        <input type="submit"
+               value="Cerrar sesión"
+               asp-page-handler="BtClose"
+               class="btn btn-secondary" />
+    </form>
+
+    <div class="text-center">
+        <h1 class="display-4">Supermercado</h1>
+        <p>Selecciona un módulo para administrar su información.</p>
+    </div>
+
+    <div class="row mt-4">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Personas</h5>
+                        <ul class="list-unstyled mb-0">
+                        <li><a asp-page="/Ventanas/Personas">Personas</a></li>
+                        <li><a asp-page="/Ventanas/Clientes">Clientes</a></li>
+                        <li><a asp-page="/Ventanas/Proveedores">Proveedores</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Empleados</h5>
-                    <ul class="list-unstyled mb-0">
-                    <li><a asp-page="/Ventanas/Empleados">Empleados</a></li>
-                    <li><a asp-page="/Ventanas/Cargos">Cargos</a></li>
-                    <li><a asp-page="/Ventanas/Turnos">Turnos</a></li>
-                    <li><a asp-page="/Ventanas/ProgramacionTurnos">Programación de turnos</a></li>
-                    <li><a asp-page="/Ventanas/SueldoEmpleados">Sueldos de empleados</a></li>
-                    </ul>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Empleados</h5>
+                        <ul class="list-unstyled mb-0">
+                        <li><a asp-page="/Ventanas/Empleados">Empleados</a></li>
+                        <li><a asp-page="/Ventanas/Cargos">Cargos</a></li>
+                        <li><a asp-page="/Ventanas/Turnos">Turnos</a></li>
+                        <li><a asp-page="/Ventanas/ProgramacionTurnos">Programación de turnos</a></li>
+                        <li><a asp-page="/Ventanas/SueldoEmpleados">Sueldos de empleados</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Productos</h5>
-                    <ul class="list-unstyled mb-0">
-                    <li><a asp-page="/Ventanas/Categorias">Categorías</a></li>
-                    <li><a asp-page="/Ventanas/Subcategorias">Subcategorías</a></li>
-                    <li><a asp-page="/Ventanas/Productos">Productos</a></li>
-                    </ul>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Productos</h5>
+                        <ul class="list-unstyled mb-0">
+                        <li><a asp-page="/Ventanas/Categorias">Categorías</a></li>
+                        <li><a asp-page="/Ventanas/Subcategorias">Subcategorías</a></li>
+                        <li><a asp-page="/Ventanas/Productos">Productos</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Inventario</h5>
-                    <ul class="list-unstyled mb-0">
-                    <li><a asp-page="/Ventanas/Bodegas">Bodegas</a></li>
-                    <li><a asp-page="/Ventanas/Inventarios">Inventarios</a></li>
-                    <li><a asp-page="/Ventanas/MovimientosInventarios">Movimientos de inventarios</a></li>
-                    </ul>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Inventario</h5>
+                        <ul class="list-unstyled mb-0">
+                        <li><a asp-page="/Ventanas/Bodegas">Bodegas</a></li>
+                        <li><a asp-page="/Ventanas/Inventarios">Inventarios</a></li>
+                        <li><a asp-page="/Ventanas/MovimientosInventarios">Movimientos de inventarios</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Ventas</h5>
-                    <ul class="list-unstyled mb-0">
-                    <li><a asp-page="/Ventanas/Facturas">Facturas</a></li>
-                    <li><a asp-page="/Ventanas/DetallesFacturas">Detalles de facturas</a></li>
-                    <li><a asp-page="/Ventanas/MetodosPago">Métodos de pago</a></li>
-                    <li><a asp-page="/Ventanas/CuentasCobrar">Cuentas por cobrar</a></li>
-                    </ul>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Ventas</h5>
+                        <ul class="list-unstyled mb-0">
+                        <li><a asp-page="/Ventanas/Facturas">Facturas</a></li>
+                        <li><a asp-page="/Ventanas/DetallesFacturas">Detalles de facturas</a></li>
+                        <li><a asp-page="/Ventanas/MetodosPago">Métodos de pago</a></li>
+                        <li><a asp-page="/Ventanas/CuentasCobrar">Cuentas por cobrar</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Compras</h5>
-                    <ul class="list-unstyled mb-0">
-                    <li><a asp-page="/Ventanas/ComprasProveedores">Compras a proveedores</a></li>
-                    <li><a asp-page="/Ventanas/DetallesCompras">Detalles de compras</a></li>
-                    </ul>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Compras</h5>
+                        <ul class="list-unstyled mb-0">
+                        <li><a asp-page="/Ventanas/ComprasProveedores">Compras a proveedores</a></li>
+                        <li><a asp-page="/Ventanas/DetallesCompras">Detalles de compras</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-</div>
+    </div>
+}
