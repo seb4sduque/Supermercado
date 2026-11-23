@@ -5,7 +5,7 @@ using System.Text;
 
 namespace lib_supermercado.entidades
 {
-    public class Facturas
+    public class Facturas : EntidadAuditable
     {
         public int Id { get; set; }
         public DateTime FechaHora { get; set; }

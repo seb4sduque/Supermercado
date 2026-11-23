@@ -5,7 +5,7 @@ using System.Text;
 
 namespace lib_supermercado.entidades
 {
-    public class ProgramacionTurnos
+    public class ProgramacionTurnos : EntidadAuditable
     {
         public int Id { get; set; }
         public DateTime FechaAsignacion { get; set; }

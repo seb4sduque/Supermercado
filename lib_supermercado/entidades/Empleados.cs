@@ -5,7 +5,7 @@ using System.Text;
 
 namespace lib_supermercado.entidades
 {
-    public class Empleados
+    public class Empleados : EntidadAuditable
     {
         public int Id { get; set; }
         public DateTime FechaContratacion { get; set; }

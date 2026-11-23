@@ -11,7 +11,11 @@ CREATE TABLE Bodegas (
     Nombre NVARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(255) NULL,
     Capacidad DECIMAL(18,2) NOT NULL,
-    Estado NVARCHAR(50) NOT NULL
+    Estado NVARCHAR(50) NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL
 );
 
 CREATE TABLE Cargos (
@@ -19,7 +23,11 @@ CREATE TABLE Cargos (
     Nombre NVARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(255) NULL,
     SalarioBase DECIMAL(18,2) NOT NULL,
-    NivelAcceso NVARCHAR(50) NOT NULL
+    NivelAcceso NVARCHAR(50) NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL
 );
 
 CREATE TABLE Categorias (
@@ -27,7 +35,10 @@ CREATE TABLE Categorias (
     Nombre NVARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(255) NULL,
     Estado NVARCHAR(50) NOT NULL,
-    FechaCreacion DATETIME NOT NULL
+    FechaCreacion DATETIME NOT NULL,
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL
 );
 
 CREATE TABLE MetodosPago (
@@ -35,7 +46,11 @@ CREATE TABLE MetodosPago (
     Nombre NVARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(255) NULL,
     RequiereBanco BIT NOT NULL,
-    MontoMinimo DECIMAL(18,2) NOT NULL
+    MontoMinimo DECIMAL(18,2) NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL
 );
 
 CREATE TABLE Personas (
@@ -43,7 +58,11 @@ CREATE TABLE Personas (
     Nombre NVARCHAR(150) NOT NULL,
     Telefono NVARCHAR(50) NULL,
     Correo NVARCHAR(100) NULL,
-    Documento NVARCHAR(50) NOT NULL
+    Documento NVARCHAR(50) NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL
 );
 
 CREATE TABLE Turnos (
@@ -51,7 +70,11 @@ CREATE TABLE Turnos (
     Nombre NVARCHAR(100) NOT NULL,
     HoraInicio TIME NOT NULL,
     HoraFin TIME NOT NULL,
-    Festivos BIT NOT NULL
+    Festivos BIT NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL
 );
 
 CREATE TABLE Subcategorias (
@@ -60,6 +83,10 @@ CREATE TABLE Subcategorias (
     Descripcion NVARCHAR(255) NULL,
     Impuesto DECIMAL(5,2) NOT NULL,
     Categoria INT NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL,
     CONSTRAINT FK_Subcategorias_Categorias FOREIGN KEY (Categoria) REFERENCES Categorias(Id)
 );
 
@@ -67,6 +94,10 @@ CREATE TABLE Clientes (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     Estado NVARCHAR(50) NOT NULL,
     Persona INT NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL,
     CONSTRAINT FK_Clientes_Personas FOREIGN KEY (Persona) REFERENCES Personas(Id)
 );
 
@@ -75,6 +106,10 @@ CREATE TABLE Empleados (
     FechaContratacion DATETIME NOT NULL,
     Persona INT NOT NULL,
     Cargo INT NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL,
     CONSTRAINT FK_Empleados_Personas FOREIGN KEY (Persona) REFERENCES Personas(Id),
     CONSTRAINT FK_Empleados_Cargos FOREIGN KEY (Cargo) REFERENCES Cargos(Id)
 );
@@ -85,6 +120,10 @@ CREATE TABLE Proveedores (
     NombreEmpresa NVARCHAR(150) NOT NULL,
     TipoProveedor NVARCHAR(50) NOT NULL,
     Persona INT NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL,
     CONSTRAINT FK_Proveedores_Personas FOREIGN KEY (Persona) REFERENCES Personas(Id)
 );
 
@@ -95,6 +134,10 @@ CREATE TABLE Productos (
     CodigoBarras NVARCHAR(100) NOT NULL,
     Subcategoria INT NOT NULL,
     Imagen NVARCHAR(MAX) NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL,
     CONSTRAINT FK_Productos_Subcategorias FOREIGN KEY (Subcategoria) REFERENCES Subcategorias(Id)
 );
 
@@ -104,6 +147,10 @@ CREATE TABLE ComprasProveedores (
     FechaCompra DATETIME NOT NULL,
     TotalCompra DECIMAL(18,2) NOT NULL,
     Proveedor INT NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL,
     CONSTRAINT FK_ComprasProveedores_Proveedores FOREIGN KEY (Proveedor) REFERENCES Proveedores(Id)
 );
 
@@ -115,6 +162,10 @@ CREATE TABLE Facturas (
     Cliente INT NOT NULL,
     Empleado INT NOT NULL,
     MetodoPago INT NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL,
     CONSTRAINT FK_Facturas_Clientes FOREIGN KEY (Cliente) REFERENCES Clientes(Id),
     CONSTRAINT FK_Facturas_Empleados FOREIGN KEY (Empleado) REFERENCES Empleados(Id),
     CONSTRAINT FK_Facturas_MetodosPago FOREIGN KEY (MetodoPago) REFERENCES MetodosPago(Id)
@@ -126,6 +177,10 @@ CREATE TABLE ProgramacionTurnos (
     HorasExtras INT NOT NULL,
     Empleado INT NOT NULL,
     Turno INT NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL,
     CONSTRAINT FK_ProgramacionTurnos_Empleados FOREIGN KEY (Empleado) REFERENCES Empleados(Id),
     CONSTRAINT FK_ProgramacionTurnos_Turnos FOREIGN KEY (Turno) REFERENCES Turnos(Id)
 );
@@ -136,6 +191,10 @@ CREATE TABLE SueldoEmpleados (
     FechaPago DATETIME NOT NULL,
     MetodoPago NVARCHAR(50) NOT NULL,
     Empleado INT NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL,
     CONSTRAINT FK_SueldoEmpleados_Empleados FOREIGN KEY (Empleado) REFERENCES Empleados(Id)
 );
 
@@ -145,6 +204,10 @@ CREATE TABLE Inventarios (
     StockMinimo INT NOT NULL,
     Producto INT NOT NULL,
     Bodega INT NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL,
     CONSTRAINT FK_Inventarios_Productos FOREIGN KEY (Producto) REFERENCES Productos(Id),
     CONSTRAINT FK_Inventarios_Bodegas FOREIGN KEY (Bodega) REFERENCES Bodegas(Id)
 );
@@ -155,6 +218,10 @@ CREATE TABLE DetallesCompras (
     Cantidad INT NOT NULL,
     Producto INT NOT NULL,
     CompraProveedor INT NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL,
     CONSTRAINT FK_DetallesCompras_Productos FOREIGN KEY (Producto) REFERENCES Productos(Id),
     CONSTRAINT FK_DetallesCompras_ComprasProveedores FOREIGN KEY (CompraProveedor) REFERENCES ComprasProveedores(Id)
 );
@@ -165,6 +232,10 @@ CREATE TABLE DetallesFacturas (
     PrecioUnitario DECIMAL(18,2) NOT NULL,
     Factura INT NOT NULL,
     Producto INT NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL,
     CONSTRAINT FK_DetallesFacturas_Facturas FOREIGN KEY (Factura) REFERENCES Facturas(Id),
     CONSTRAINT FK_DetallesFacturas_Productos FOREIGN KEY (Producto) REFERENCES Productos(Id)
 );
@@ -175,6 +246,10 @@ CREATE TABLE CuentasCobrar (
     EstadoDeuda NVARCHAR(50) NOT NULL,
     Cliente INT NOT NULL,
     Factura INT NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL,
     CONSTRAINT FK_CuentasCobrar_Clientes FOREIGN KEY (Cliente) REFERENCES Clientes(Id),
     CONSTRAINT FK_CuentasCobrar_Facturas FOREIGN KEY (Factura) REFERENCES Facturas(Id)
 );
@@ -185,6 +260,10 @@ CREATE TABLE MovimientosInventarios (
     CantidadMovimiento INT NOT NULL,
     FechaHora DATETIME NOT NULL,
     Inventario INT NOT NULL,
+    FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
+    CreadoPor NVARCHAR(100) NULL,
+    FechaModificacion DATETIME NULL,
+    ModificadoPor NVARCHAR(100) NULL,
     CONSTRAINT FK_MovimientosInventarios_Inventarios FOREIGN KEY (Inventario) REFERENCES Inventarios(Id)
 );
 
@@ -299,4 +378,37 @@ GO
 
 
 
+*/
+
+/*
+-- =====================================================
+-- SOLO para una base de datos YA CREADA (sin campos de auditoría):
+-- agrega las columnas de auditoría. Si creas la base desde cero con el
+-- script de arriba, NO lo necesitas.
+-- =====================================================
+
+USE SupermercadoDB;
+GO
+
+ALTER TABLE Bodegas ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_Bodegas_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE Cargos ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_Cargos_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE Categorias ADD CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE MetodosPago ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_MetodosPago_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE Personas ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_Personas_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE Turnos ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_Turnos_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE Subcategorias ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_Subcategorias_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE Clientes ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_Clientes_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE Empleados ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_Empleados_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE Proveedores ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_Proveedores_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE Productos ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_Productos_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE ComprasProveedores ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_ComprasProveedores_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE Facturas ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_Facturas_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE ProgramacionTurnos ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_ProgramacionTurnos_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE SueldoEmpleados ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_SueldoEmpleados_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE Inventarios ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_Inventarios_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE DetallesCompras ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_DetallesCompras_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE DetallesFacturas ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_DetallesFacturas_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE CuentasCobrar ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_CuentasCobrar_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+ALTER TABLE MovimientosInventarios ADD FechaCreacion DATETIME NOT NULL CONSTRAINT DF_MovimientosInventarios_FechaCreacion DEFAULT GETDATE(), CreadoPor NVARCHAR(100) NULL, FechaModificacion DATETIME NULL, ModificadoPor NVARCHAR(100) NULL;
+GO
 */

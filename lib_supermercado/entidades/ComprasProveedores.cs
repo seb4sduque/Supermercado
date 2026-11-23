@@ -5,7 +5,7 @@ using System.Text;
 
 namespace lib_supermercado.entidades
 {
-    public class ComprasProveedores
+    public class ComprasProveedores : EntidadAuditable
     {
         public int Id { get; set; }
         public int NumeroFactura { get; set; }

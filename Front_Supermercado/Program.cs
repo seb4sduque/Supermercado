@@ -57,6 +57,15 @@ app.UseRequestLocalization(new RequestLocalizationOptions
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseSession();
+
+// Le pasa a la capa de comunicación el usuario logueado (para la auditoría)
+app.Use(async (contexto, siguiente) =>
+{
+    var comunicaciones = contexto.RequestServices.GetRequiredService<IComunicaciones>();
+    comunicaciones.Usuario = contexto.Session.GetString("Usuario");
+    await siguiente();
+});
+
 app.UseAuthorization();
 app.MapStaticAssets();
 app.MapRazorPages()

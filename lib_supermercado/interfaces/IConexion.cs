@@ -11,6 +11,7 @@ namespace lib_supermercado.interfaces
     {
 
         string? StringConexion { get; set; }
+        string? UsuarioActual { get; set; }
 
         public DbSet<Bodegas> Bodegas { get; set; } 
         public DbSet<Cargos> Cargos { get; set; }

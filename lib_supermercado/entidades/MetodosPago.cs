@@ -4,7 +4,7 @@ using System.Text;
 
 namespace lib_supermercado.entidades
 {
-    public class MetodosPago
+    public class MetodosPago : EntidadAuditable
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

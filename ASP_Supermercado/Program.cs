@@ -33,6 +33,14 @@ builder.Services.AddScoped<ITurnosAplicaciones, TurnosLogica>();
 var app = builder.Build();
 
 
+// Toma el usuario que envía el front y se lo entrega a la conexión (para la auditoría)
+app.Use(async (contexto, siguiente) =>
+{
+    var conexion = contexto.RequestServices.GetRequiredService<IConexion>();
+    conexion.UsuarioActual = contexto.Request.Headers["Usuario"].FirstOrDefault();
+    await siguiente();
+});
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

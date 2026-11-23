@@ -5,7 +5,7 @@ using System.Text;
 
 namespace lib_supermercado.entidades
 {
-    public class SueldoEmpleados
+    public class SueldoEmpleados : EntidadAuditable
     {
         public int Id { get; set; }
         public decimal MontoPagado { get; set; }

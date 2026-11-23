@@ -5,7 +5,7 @@ using System.Text;
 
 namespace lib_supermercado.entidades
 {
-    public class Proveedores
+    public class Proveedores : EntidadAuditable
     {
         public int Id { get; set; }
         public string Direccion { get; set; }

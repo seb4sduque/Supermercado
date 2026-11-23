@@ -5,7 +5,7 @@ using System.Text;
 
 namespace lib_supermercado.entidades
 {
-    public class CuentasCobrar
+    public class CuentasCobrar : EntidadAuditable
     {
         public int Id { get; set; }
         public decimal SaldoPendiente { get; set; }
