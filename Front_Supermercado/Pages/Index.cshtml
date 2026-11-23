@@ -1,4 +1,5 @@
 @page
+@using Front_Supermercado.Nucleo
 @model IndexModel
 @{
     ViewData["Title"] = "Inicio";
@@ -64,79 +65,97 @@ else
     </div>
 
     <div class="row mt-4">
-            <div class="col-md-4 mb-4">
+            @if (Permisos.PuedeVerAlguna(HttpContext, "Personas", "Clientes", "Proveedores"))
+{
+<div class="col-md-4 mb-4">
                 <div class="card card-modulo h-100">
                     <div class="card-body">
                         <h5 class="card-title">Personas</h5>
                         <ul class="list-unstyled mb-0">
-                        <li><a asp-page="/Ventanas/Personas">Personas</a></li>
-                        <li><a asp-page="/Ventanas/Clientes">Clientes</a></li>
-                        <li><a asp-page="/Ventanas/Proveedores">Proveedores</a></li>
+                        @if (Permisos.PuedeVer(HttpContext, "Personas")) { <li><a asp-page="/Ventanas/Personas">Personas</a></li> }
+                        @if (Permisos.PuedeVer(HttpContext, "Clientes")) { <li><a asp-page="/Ventanas/Clientes">Clientes</a></li> }
+                        @if (Permisos.PuedeVer(HttpContext, "Proveedores")) { <li><a asp-page="/Ventanas/Proveedores">Proveedores</a></li> }
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+}
+            @if (Permisos.PuedeVerAlguna(HttpContext, "Empleados", "Cargos", "Turnos", "ProgramacionTurnos", "SueldoEmpleados"))
+{
+<div class="col-md-4 mb-4">
                 <div class="card card-modulo h-100">
                     <div class="card-body">
                         <h5 class="card-title">Empleados</h5>
                         <ul class="list-unstyled mb-0">
-                        <li><a asp-page="/Ventanas/Empleados">Empleados</a></li>
-                        <li><a asp-page="/Ventanas/Cargos">Cargos</a></li>
-                        <li><a asp-page="/Ventanas/Turnos">Turnos</a></li>
-                        <li><a asp-page="/Ventanas/ProgramacionTurnos">Programación de turnos</a></li>
-                        <li><a asp-page="/Ventanas/SueldoEmpleados">Sueldos de empleados</a></li>
+                        @if (Permisos.PuedeVer(HttpContext, "Empleados")) { <li><a asp-page="/Ventanas/Empleados">Empleados</a></li> }
+                        @if (Permisos.PuedeVer(HttpContext, "Cargos")) { <li><a asp-page="/Ventanas/Cargos">Cargos</a></li> }
+                        @if (Permisos.PuedeVer(HttpContext, "Turnos")) { <li><a asp-page="/Ventanas/Turnos">Turnos</a></li> }
+                        @if (Permisos.PuedeVer(HttpContext, "ProgramacionTurnos")) { <li><a asp-page="/Ventanas/ProgramacionTurnos">Programación de turnos</a></li> }
+                        @if (Permisos.PuedeVer(HttpContext, "SueldoEmpleados")) { <li><a asp-page="/Ventanas/SueldoEmpleados">Sueldos de empleados</a></li> }
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+}
+            @if (Permisos.PuedeVerAlguna(HttpContext, "Categorias", "Subcategorias", "Productos"))
+{
+<div class="col-md-4 mb-4">
                 <div class="card card-modulo h-100">
                     <div class="card-body">
                         <h5 class="card-title">Productos</h5>
                         <ul class="list-unstyled mb-0">
-                        <li><a asp-page="/Ventanas/Categorias">Categorías</a></li>
-                        <li><a asp-page="/Ventanas/Subcategorias">Subcategorías</a></li>
-                        <li><a asp-page="/Ventanas/Productos">Productos</a></li>
+                        @if (Permisos.PuedeVer(HttpContext, "Categorias")) { <li><a asp-page="/Ventanas/Categorias">Categorías</a></li> }
+                        @if (Permisos.PuedeVer(HttpContext, "Subcategorias")) { <li><a asp-page="/Ventanas/Subcategorias">Subcategorías</a></li> }
+                        @if (Permisos.PuedeVer(HttpContext, "Productos")) { <li><a asp-page="/Ventanas/Productos">Productos</a></li> }
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+}
+            @if (Permisos.PuedeVerAlguna(HttpContext, "Bodegas", "Inventarios", "MovimientosInventarios"))
+{
+<div class="col-md-4 mb-4">
                 <div class="card card-modulo h-100">
                     <div class="card-body">
                         <h5 class="card-title">Inventario</h5>
                         <ul class="list-unstyled mb-0">
-                        <li><a asp-page="/Ventanas/Bodegas">Bodegas</a></li>
-                        <li><a asp-page="/Ventanas/Inventarios">Inventarios</a></li>
-                        <li><a asp-page="/Ventanas/MovimientosInventarios">Movimientos de inventarios</a></li>
+                        @if (Permisos.PuedeVer(HttpContext, "Bodegas")) { <li><a asp-page="/Ventanas/Bodegas">Bodegas</a></li> }
+                        @if (Permisos.PuedeVer(HttpContext, "Inventarios")) { <li><a asp-page="/Ventanas/Inventarios">Inventarios</a></li> }
+                        @if (Permisos.PuedeVer(HttpContext, "MovimientosInventarios")) { <li><a asp-page="/Ventanas/MovimientosInventarios">Movimientos de inventarios</a></li> }
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+}
+            @if (Permisos.PuedeVerAlguna(HttpContext, "Facturas", "DetallesFacturas", "MetodosPago", "CuentasCobrar"))
+{
+<div class="col-md-4 mb-4">
                 <div class="card card-modulo h-100">
                     <div class="card-body">
                         <h5 class="card-title">Ventas</h5>
                         <ul class="list-unstyled mb-0">
-                        <li><a asp-page="/Ventanas/Facturas">Facturas</a></li>
-                        <li><a asp-page="/Ventanas/DetallesFacturas">Detalles de facturas</a></li>
-                        <li><a asp-page="/Ventanas/MetodosPago">Métodos de pago</a></li>
-                        <li><a asp-page="/Ventanas/CuentasCobrar">Cuentas por cobrar</a></li>
+                        @if (Permisos.PuedeVer(HttpContext, "Facturas")) { <li><a asp-page="/Ventanas/Facturas">Facturas</a></li> }
+                        @if (Permisos.PuedeVer(HttpContext, "DetallesFacturas")) { <li><a asp-page="/Ventanas/DetallesFacturas">Detalles de facturas</a></li> }
+                        @if (Permisos.PuedeVer(HttpContext, "MetodosPago")) { <li><a asp-page="/Ventanas/MetodosPago">Métodos de pago</a></li> }
+                        @if (Permisos.PuedeVer(HttpContext, "CuentasCobrar")) { <li><a asp-page="/Ventanas/CuentasCobrar">Cuentas por cobrar</a></li> }
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+}
+            @if (Permisos.PuedeVerAlguna(HttpContext, "ComprasProveedores", "DetallesCompras"))
+{
+<div class="col-md-4 mb-4">
                 <div class="card card-modulo h-100">
                     <div class="card-body">
                         <h5 class="card-title">Compras</h5>
                         <ul class="list-unstyled mb-0">
-                        <li><a asp-page="/Ventanas/ComprasProveedores">Compras a proveedores</a></li>
-                        <li><a asp-page="/Ventanas/DetallesCompras">Detalles de compras</a></li>
+                        @if (Permisos.PuedeVer(HttpContext, "ComprasProveedores")) { <li><a asp-page="/Ventanas/ComprasProveedores">Compras a proveedores</a></li> }
+                        @if (Permisos.PuedeVer(HttpContext, "DetallesCompras")) { <li><a asp-page="/Ventanas/DetallesCompras">Detalles de compras</a></li> }
                         </ul>
                     </div>
                 </div>
             </div>
+}
     </div>
 }

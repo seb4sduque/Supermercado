@@ -1,4 +1,5 @@
 @using Microsoft.AspNetCore.Http
+@using Front_Supermercado.Nucleo
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,56 +27,74 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        @if (Permisos.PuedeVerAlguna(Context, "Personas", "Clientes", "Proveedores"))
+{
+<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Personas</a>
                             <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Personas">Personas</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Clientes">Clientes</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Proveedores">Proveedores</a></li>
+                                    @if (Permisos.PuedeVer(Context, "Personas")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Personas">Personas</a></li> }
+                                    @if (Permisos.PuedeVer(Context, "Clientes")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Clientes">Clientes</a></li> }
+                                    @if (Permisos.PuedeVer(Context, "Proveedores")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Proveedores">Proveedores</a></li> }
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+}
+                        @if (Permisos.PuedeVerAlguna(Context, "Empleados", "Cargos", "Turnos", "ProgramacionTurnos", "SueldoEmpleados"))
+{
+<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Empleados</a>
                             <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Empleados">Empleados</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Cargos">Cargos</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Turnos">Turnos</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/ProgramacionTurnos">Programación de turnos</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/SueldoEmpleados">Sueldos de empleados</a></li>
+                                    @if (Permisos.PuedeVer(Context, "Empleados")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Empleados">Empleados</a></li> }
+                                    @if (Permisos.PuedeVer(Context, "Cargos")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Cargos">Cargos</a></li> }
+                                    @if (Permisos.PuedeVer(Context, "Turnos")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Turnos">Turnos</a></li> }
+                                    @if (Permisos.PuedeVer(Context, "ProgramacionTurnos")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/ProgramacionTurnos">Programación de turnos</a></li> }
+                                    @if (Permisos.PuedeVer(Context, "SueldoEmpleados")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/SueldoEmpleados">Sueldos de empleados</a></li> }
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+}
+                        @if (Permisos.PuedeVerAlguna(Context, "Categorias", "Subcategorias", "Productos"))
+{
+<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
                             <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Categorias">Categorías</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Subcategorias">Subcategorías</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Productos">Productos</a></li>
+                                    @if (Permisos.PuedeVer(Context, "Categorias")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Categorias">Categorías</a></li> }
+                                    @if (Permisos.PuedeVer(Context, "Subcategorias")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Subcategorias">Subcategorías</a></li> }
+                                    @if (Permisos.PuedeVer(Context, "Productos")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Productos">Productos</a></li> }
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+}
+                        @if (Permisos.PuedeVerAlguna(Context, "Bodegas", "Inventarios", "MovimientosInventarios"))
+{
+<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inventario</a>
                             <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Bodegas">Bodegas</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Inventarios">Inventarios</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/MovimientosInventarios">Movimientos de inventarios</a></li>
+                                    @if (Permisos.PuedeVer(Context, "Bodegas")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Bodegas">Bodegas</a></li> }
+                                    @if (Permisos.PuedeVer(Context, "Inventarios")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Inventarios">Inventarios</a></li> }
+                                    @if (Permisos.PuedeVer(Context, "MovimientosInventarios")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/MovimientosInventarios">Movimientos de inventarios</a></li> }
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+}
+                        @if (Permisos.PuedeVerAlguna(Context, "Facturas", "DetallesFacturas", "MetodosPago", "CuentasCobrar"))
+{
+<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ventas</a>
                             <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Facturas">Facturas</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/DetallesFacturas">Detalles de facturas</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/MetodosPago">Métodos de pago</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/CuentasCobrar">Cuentas por cobrar</a></li>
+                                    @if (Permisos.PuedeVer(Context, "Facturas")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Facturas">Facturas</a></li> }
+                                    @if (Permisos.PuedeVer(Context, "DetallesFacturas")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/DetallesFacturas">Detalles de facturas</a></li> }
+                                    @if (Permisos.PuedeVer(Context, "MetodosPago")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/MetodosPago">Métodos de pago</a></li> }
+                                    @if (Permisos.PuedeVer(Context, "CuentasCobrar")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/CuentasCobrar">Cuentas por cobrar</a></li> }
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+}
+                        @if (Permisos.PuedeVerAlguna(Context, "ComprasProveedores", "DetallesCompras"))
+{
+<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Compras</a>
                             <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/ComprasProveedores">Compras a proveedores</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/DetallesCompras">Detalles de compras</a></li>
+                                    @if (Permisos.PuedeVer(Context, "ComprasProveedores")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/ComprasProveedores">Compras a proveedores</a></li> }
+                                    @if (Permisos.PuedeVer(Context, "DetallesCompras")) { <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/DetallesCompras">Detalles de compras</a></li> }
                             </ul>
                         </li>
+}
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>

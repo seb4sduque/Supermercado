@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Front_Supermercado.Nucleo;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Front_Supermercado.Pages
@@ -44,7 +45,8 @@ namespace Front_Supermercado.Pages
                     return;
                 }
 
-                if ("Usuario.123" != Email + "." + Contraseña)
+                var rol = Permisos.Validar(Email, Contraseña);
+                if (rol == null)
                 {
                     OnPostBtClean();
                     Mensaje = "Usuario o contraseña incorrectos.";
@@ -52,6 +54,7 @@ namespace Front_Supermercado.Pages
                 }
 
                 HttpContext.Session.SetString("Usuario", Email!);
+                HttpContext.Session.SetString("Rol", rol);
                 EstaLogueado = true;
                 OnPostBtClean();
             }

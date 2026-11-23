@@ -66,6 +66,23 @@ app.Use(async (contexto, siguiente) =>
     await siguiente();
 });
 
+// Bloquea por URL las ventanas que el rol del usuario no puede ver
+app.Use(async (contexto, siguiente) =>
+{
+    var ruta = contexto.Request.Path.Value ?? "";
+    const string prefijo = "/Ventanas/";
+    if (ruta.StartsWith(prefijo, StringComparison.OrdinalIgnoreCase))
+    {
+        var ventana = ruta.Substring(prefijo.Length).Split('/')[0];
+        if (!Permisos.PuedeVer(contexto, ventana))
+        {
+            contexto.Response.Redirect("/");
+            return;
+        }
+    }
+    await siguiente();
+});
+
 app.UseAuthorization();
 app.MapStaticAssets();
 app.MapRazorPages()

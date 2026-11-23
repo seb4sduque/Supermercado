@@ -2,8 +2,7 @@ using Presentacion_Supermercado.interfaces;
 
 namespace Front_Supermercado.Nucleo
 {
-    // Entrega, para cada tabla, un diccionario Id -> texto que ve el usuario (nombre),
-    // para que las ventanas no muestren ni pidan el Id.
+
     public class Catalogos
     {
         private readonly IPersonasPresentacion personas;
