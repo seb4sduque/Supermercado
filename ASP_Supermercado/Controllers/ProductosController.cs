@@ -6,7 +6,7 @@ namespace ASP_Supermercado.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class ProductosController : ControllerBase
+    public class ProductosController : ControladorBase
     {
         private IProductosAplicaciones IProductosAplicaciones;
 
@@ -16,27 +16,55 @@ namespace ASP_Supermercado.Controllers
         }
 
         [HttpPost]
-        public List<Productos> Consultar()
+        public ActionResult<List<Productos>> Consultar()
         {
-            return this.IProductosAplicaciones.Consultar();
+            try
+            {
+                return this.IProductosAplicaciones.Consultar();
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Productos Insertar(Productos entidad)
+        public ActionResult<Productos> Insertar(Productos entidad)
         {
-            return this.IProductosAplicaciones.Insertar(entidad);
+            try
+            {
+                return this.IProductosAplicaciones.Insertar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Productos Actualizar(Productos entidad)
+        public ActionResult<Productos> Actualizar(Productos entidad)
         {
-            return this.IProductosAplicaciones.Actualizar(entidad);
+            try
+            {
+                return this.IProductosAplicaciones.Actualizar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Productos Borrar(Productos entidad)
+        public ActionResult<Productos> Borrar(Productos entidad)
         {
-            return this.IProductosAplicaciones.Borrar(entidad);
+            try
+            {
+                return this.IProductosAplicaciones.Borrar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
     }
 }

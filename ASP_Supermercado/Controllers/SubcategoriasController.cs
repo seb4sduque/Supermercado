@@ -6,7 +6,7 @@ namespace ASP_Supermercado.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class SubcategoriasController : ControllerBase
+    public class SubcategoriasController : ControladorBase
     {
         private ISubcategoriasAplicaciones ISubcategoriasAplicaciones;
 
@@ -16,27 +16,55 @@ namespace ASP_Supermercado.Controllers
         }
 
         [HttpPost]
-        public List<Subcategorias> Consultar()
+        public ActionResult<List<Subcategorias>> Consultar()
         {
-            return this.ISubcategoriasAplicaciones.Consultar();
+            try
+            {
+                return this.ISubcategoriasAplicaciones.Consultar();
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Subcategorias Insertar(Subcategorias entidad)
+        public ActionResult<Subcategorias> Insertar(Subcategorias entidad)
         {
-            return this.ISubcategoriasAplicaciones.Insertar(entidad);
+            try
+            {
+                return this.ISubcategoriasAplicaciones.Insertar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Subcategorias Actualizar(Subcategorias entidad)
+        public ActionResult<Subcategorias> Actualizar(Subcategorias entidad)
         {
-            return this.ISubcategoriasAplicaciones.Actualizar(entidad);
+            try
+            {
+                return this.ISubcategoriasAplicaciones.Actualizar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Subcategorias Borrar(Subcategorias entidad)
+        public ActionResult<Subcategorias> Borrar(Subcategorias entidad)
         {
-            return this.ISubcategoriasAplicaciones.Borrar(entidad);
+            try
+            {
+                return this.ISubcategoriasAplicaciones.Borrar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
     }
 }

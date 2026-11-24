@@ -6,7 +6,7 @@ namespace ASP_Supermercado.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class DetallesFacturasController : ControllerBase
+    public class DetallesFacturasController : ControladorBase
     {
         private IDetallesFacturasAplicaciones IDetallesFacturasAplicaciones;
 
@@ -16,27 +16,55 @@ namespace ASP_Supermercado.Controllers
         }
 
         [HttpPost]
-        public List<DetallesFacturas> Consultar()
+        public ActionResult<List<DetallesFacturas>> Consultar()
         {
-            return this.IDetallesFacturasAplicaciones.Consultar();
+            try
+            {
+                return this.IDetallesFacturasAplicaciones.Consultar();
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public DetallesFacturas Insertar(DetallesFacturas entidad)
+        public ActionResult<DetallesFacturas> Insertar(DetallesFacturas entidad)
         {
-            return this.IDetallesFacturasAplicaciones.Insertar(entidad);
+            try
+            {
+                return this.IDetallesFacturasAplicaciones.Insertar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public DetallesFacturas Actualizar(DetallesFacturas entidad)
+        public ActionResult<DetallesFacturas> Actualizar(DetallesFacturas entidad)
         {
-            return this.IDetallesFacturasAplicaciones.Actualizar(entidad);
+            try
+            {
+                return this.IDetallesFacturasAplicaciones.Actualizar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public DetallesFacturas Borrar(DetallesFacturas entidad)
+        public ActionResult<DetallesFacturas> Borrar(DetallesFacturas entidad)
         {
-            return this.IDetallesFacturasAplicaciones.Borrar(entidad);
+            try
+            {
+                return this.IDetallesFacturasAplicaciones.Borrar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
     }
 }

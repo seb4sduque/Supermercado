@@ -17,6 +17,12 @@ namespace lib_supermercado.implementaciones
 
         public ProgramacionTurnos Insertar(ProgramacionTurnos entidad)
         {
+            if (entidad.FechaAsignacion.Year < 1753)
+                throw new Exception("Debe indicar una fecha de asignación válida");
+
+            if (entidad.HorasExtras < 0)
+                throw new Exception("Las horas extras no pueden ser negativas");
+
             this.conexion.ProgramacionTurnos.Add(entidad);
             this.conexion.SaveChanges();
             return entidad;
@@ -29,6 +35,12 @@ namespace lib_supermercado.implementaciones
 
         public ProgramacionTurnos Actualizar(ProgramacionTurnos entidad)
         {
+            if (entidad.FechaAsignacion.Year < 1753)
+                throw new Exception("Debe indicar una fecha de asignación válida");
+
+            if (entidad.HorasExtras < 0)
+                throw new Exception("Las horas extras no pueden ser negativas");
+
             this.conexion.Entry<ProgramacionTurnos>(entidad).State = EntityState.Modified;
             this.conexion.SaveChanges();
             return entidad;

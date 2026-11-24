@@ -6,7 +6,7 @@ namespace ASP_Supermercado.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class ProgramacionTurnosController : ControllerBase
+    public class ProgramacionTurnosController : ControladorBase
     {
         private IProgramacionTurnosAplicaciones IProgramacionTurnosAplicaciones;
 
@@ -16,27 +16,55 @@ namespace ASP_Supermercado.Controllers
         }
 
         [HttpPost]
-        public List<ProgramacionTurnos> Consultar()
+        public ActionResult<List<ProgramacionTurnos>> Consultar()
         {
-            return this.IProgramacionTurnosAplicaciones.Consultar();
+            try
+            {
+                return this.IProgramacionTurnosAplicaciones.Consultar();
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public ProgramacionTurnos Insertar(ProgramacionTurnos entidad)
+        public ActionResult<ProgramacionTurnos> Insertar(ProgramacionTurnos entidad)
         {
-            return this.IProgramacionTurnosAplicaciones.Insertar(entidad);
+            try
+            {
+                return this.IProgramacionTurnosAplicaciones.Insertar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public ProgramacionTurnos Actualizar(ProgramacionTurnos entidad)
+        public ActionResult<ProgramacionTurnos> Actualizar(ProgramacionTurnos entidad)
         {
-            return this.IProgramacionTurnosAplicaciones.Actualizar(entidad);
+            try
+            {
+                return this.IProgramacionTurnosAplicaciones.Actualizar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public ProgramacionTurnos Borrar(ProgramacionTurnos entidad)
+        public ActionResult<ProgramacionTurnos> Borrar(ProgramacionTurnos entidad)
         {
-            return this.IProgramacionTurnosAplicaciones.Borrar(entidad);
+            try
+            {
+                return this.IProgramacionTurnosAplicaciones.Borrar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
     }
 }

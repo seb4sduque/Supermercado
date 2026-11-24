@@ -6,7 +6,7 @@ namespace ASP_Supermercado.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class DetallesComprasController : ControllerBase
+    public class DetallesComprasController : ControladorBase
     {
         private IDetallesComprasAplicaciones IDetallesComprasAplicaciones;
 
@@ -16,27 +16,55 @@ namespace ASP_Supermercado.Controllers
         }
 
         [HttpPost]
-        public List<DetallesCompras> Consultar()
+        public ActionResult<List<DetallesCompras>> Consultar()
         {
-            return this.IDetallesComprasAplicaciones.Consultar();
+            try
+            {
+                return this.IDetallesComprasAplicaciones.Consultar();
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public DetallesCompras Insertar(DetallesCompras entidad)
+        public ActionResult<DetallesCompras> Insertar(DetallesCompras entidad)
         {
-            return this.IDetallesComprasAplicaciones.Insertar(entidad);
+            try
+            {
+                return this.IDetallesComprasAplicaciones.Insertar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public DetallesCompras Actualizar(DetallesCompras entidad)
+        public ActionResult<DetallesCompras> Actualizar(DetallesCompras entidad)
         {
-            return this.IDetallesComprasAplicaciones.Actualizar(entidad);
+            try
+            {
+                return this.IDetallesComprasAplicaciones.Actualizar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public DetallesCompras Borrar(DetallesCompras entidad)
+        public ActionResult<DetallesCompras> Borrar(DetallesCompras entidad)
         {
-            return this.IDetallesComprasAplicaciones.Borrar(entidad);
+            try
+            {
+                return this.IDetallesComprasAplicaciones.Borrar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
     }
 }

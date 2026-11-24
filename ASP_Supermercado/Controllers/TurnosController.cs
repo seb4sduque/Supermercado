@@ -6,7 +6,7 @@ namespace ASP_Supermercado.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class TurnosController : ControllerBase
+    public class TurnosController : ControladorBase
     {
         private ITurnosAplicaciones ITurnosAplicaciones;
 
@@ -16,27 +16,55 @@ namespace ASP_Supermercado.Controllers
         }
 
         [HttpPost]
-        public List<Turnos> Consultar()
+        public ActionResult<List<Turnos>> Consultar()
         {
-            return this.ITurnosAplicaciones.Consultar();
+            try
+            {
+                return this.ITurnosAplicaciones.Consultar();
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Turnos Insertar(Turnos entidad)
+        public ActionResult<Turnos> Insertar(Turnos entidad)
         {
-            return this.ITurnosAplicaciones.Insertar(entidad);
+            try
+            {
+                return this.ITurnosAplicaciones.Insertar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Turnos Actualizar(Turnos entidad)
+        public ActionResult<Turnos> Actualizar(Turnos entidad)
         {
-            return this.ITurnosAplicaciones.Actualizar(entidad);
+            try
+            {
+                return this.ITurnosAplicaciones.Actualizar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Turnos Borrar(Turnos entidad)
+        public ActionResult<Turnos> Borrar(Turnos entidad)
         {
-            return this.ITurnosAplicaciones.Borrar(entidad);
+            try
+            {
+                return this.ITurnosAplicaciones.Borrar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
     }
 }

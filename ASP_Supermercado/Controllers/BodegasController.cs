@@ -6,7 +6,7 @@ namespace ASP_Supermercado.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class BodegasController : ControllerBase
+    public class BodegasController : ControladorBase
     {
         private IBodegasAplicaciones IBodegasAplicaciones;
 
@@ -16,27 +16,55 @@ namespace ASP_Supermercado.Controllers
         }
 
         [HttpPost]
-        public List<Bodegas> Consultar()
+        public ActionResult<List<Bodegas>> Consultar()
         {
-            return this.IBodegasAplicaciones.Consultar();
+            try
+            {
+                return this.IBodegasAplicaciones.Consultar();
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Bodegas Insertar(Bodegas entidad)
+        public ActionResult<Bodegas> Insertar(Bodegas entidad)
         {
-            return this.IBodegasAplicaciones.Insertar(entidad);
+            try
+            {
+                return this.IBodegasAplicaciones.Insertar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Bodegas Actualizar(Bodegas entidad)
+        public ActionResult<Bodegas> Actualizar(Bodegas entidad)
         {
-            return this.IBodegasAplicaciones.Actualizar(entidad);
+            try
+            {
+                return this.IBodegasAplicaciones.Actualizar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Bodegas Borrar(Bodegas entidad)
+        public ActionResult<Bodegas> Borrar(Bodegas entidad)
         {
-            return this.IBodegasAplicaciones.Borrar(entidad);
+            try
+            {
+                return this.IBodegasAplicaciones.Borrar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
     }
 }

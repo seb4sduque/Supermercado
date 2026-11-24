@@ -12,10 +12,13 @@
                 value="Consultar"
                 class="btn btn-secondary"
                 asp-page-handler="BtConsultar" />
-            <input type="submit"
-                value="Nuevo"
-                class="btn btn-secondary"
-                asp-page-handler="BtNuevo" />
+            @if (Model.PuedeCrear)
+            {
+                <input type="submit"
+                    value="Nuevo"
+                    class="btn btn-secondary"
+                    asp-page-handler="BtNuevo" />
+            }
             @if (Model.Nuevo)
             {
                 <input type="submit"
@@ -79,15 +82,21 @@
                             <td>@Model.NombrePersona.GetValueOrDefault(elemento.Persona)</td>
                             <td>@Model.NombreCargo.GetValueOrDefault(elemento.Cargo)</td>
                             <td>
-                                <button type="submit"
-                                    class="btn btn-sm btn-outline-primary"
-                                    asp-page-handler="BtModificar"
-                                    asp-route-id="@elemento.Id">Modificar</button>
-                                <button type="submit"
-                                    class="btn btn-sm btn-outline-danger"
-                                    asp-page-handler="BtBorrar"
-                                    asp-route-id="@elemento.Id"
-                                    onclick="return confirm('¿Borrar este registro?');">Borrar</button>
+                                @if (Model.PuedeModificar)
+                                {
+                                    <button type="submit"
+                                        class="btn btn-sm btn-outline-primary"
+                                        asp-page-handler="BtModificar"
+                                        asp-route-id="@elemento.Id">Modificar</button>
+                                }
+                                @if (Model.PuedeBorrar)
+                                {
+                                    <button type="submit"
+                                        class="btn btn-sm btn-outline-danger"
+                                        asp-page-handler="BtBorrar"
+                                        asp-route-id="@elemento.Id"
+                                        onclick="return confirm('¿Borrar este registro?');">Borrar</button>
+                                }
                             </td>
                         </tr>
                     }

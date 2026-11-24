@@ -31,6 +31,24 @@ namespace Front_Supermercado.Pages.Ventanas
         public string? Mensaje { get; set; }
         public bool EsError { get; set; } = false;
 
+        // Permisos por rol: quién puede crear o modificar y quién puede borrar
+        public bool PuedeCrear => Permisos.PuedeCrear(HttpContext, "DetallesCompras");
+        public bool PuedeModificar => Permisos.PuedeModificar(HttpContext, "DetallesCompras");
+        public bool PuedeBorrar => Permisos.PuedeBorrar(HttpContext);
+
+        private bool SinPermiso(string accion)
+        {
+            var permitido = accion == "borrar" ? PuedeBorrar
+                : accion == "modificar" ? PuedeModificar : PuedeCrear;
+            if (permitido) return false;
+            Nuevo = false;
+            this.Actual = null;
+            OnPostBtConsultar();
+            EsError = true;
+            Mensaje = accion == "borrar" ? Permisos.MensajeBorrar() : Permisos.MensajeEditar("DetallesCompras", accion);
+            return true;
+        }
+
         public void OnGet() { OnPostBtConsultar(); }
 
         public void OnPostBtConsultar()
@@ -67,6 +85,7 @@ namespace Front_Supermercado.Pages.Ventanas
 
         public void OnPostBtNuevo()
         {
+            if (SinPermiso("crear")) return;
             try
             {
                 ModelState.Clear();
@@ -82,6 +101,7 @@ namespace Front_Supermercado.Pages.Ventanas
 
         public void OnPostBtModificar(int id)
         {
+            if (SinPermiso("modificar")) return;
             try
             {
                 ModelState.Clear();
@@ -97,6 +117,7 @@ namespace Front_Supermercado.Pages.Ventanas
 
         public void OnPostBtGuardar()
         {
+            if (SinPermiso(this.Actual?.Id > 0 ? "modificar" : "crear")) return;
             try
             {
                 if (this.Actual!.Id == 0)
@@ -120,6 +141,7 @@ namespace Front_Supermercado.Pages.Ventanas
 
         public void OnPostBtBorrar(int id)
         {
+            if (SinPermiso("borrar")) return;
             try
             {
                 OnPostBtConsultar();

@@ -24,37 +24,22 @@ namespace Presentacion_Supermercado.implementaciones
 
             var message = await cliente_http.PostAsync(url, body);
 
-            if (!message.IsSuccessStatusCode)
-                throw new Exception("Error Comunicacion");
-
             var respuesta = await message.Content.ReadAsStringAsync();
+
+            if (!message.IsSuccessStatusCode)
+            {
+                // La API responde con un mensaje claro (por ejemplo, por qué no se puede borrar)
+                if (!string.IsNullOrWhiteSpace(respuesta) && respuesta.Length < 300 && !respuesta.StartsWith("<"))
+                    throw new Exception(respuesta);
+                throw new Exception("Error Comunicacion");
+            }
+
             cliente_http.Dispose(); 
             cliente_http = null;
 
-            respuesta = Replace(respuesta);
+            // La API ya responde JSON válido: no se debe "limpiar" el texto, porque
+            // dañaba el base64 de las imágenes (cambiaba + por "u002B").
             return JsonConvert.DeserializeObject<T>(respuesta)!;
-        }
-
-        private string Replace(string resp)
-        {
-            return resp.Replace("\\\\r\\\\n", "")
-                .Replace("\\r\\n", "")
-                .Replace("\\", "")
-                .Replace("\\\"", "\"")
-                .Replace("\"", "'")
-                .Replace("'[", "[")
-                .Replace("]'", "]")
-                .Replace("'{'", "{'")
-                .Replace("\\\\", "\\")
-                .Replace("'}'", "'}")
-                .Replace("}'", "}")
-                .Replace("\\n", "")
-                .Replace("\\r", "")
-                .Replace("    ", "")
-                .Replace("'{", "{")
-                .Replace("\"", "")
-                .Replace("  ", "")
-                .Replace("null", "''");
         }
     }
 }

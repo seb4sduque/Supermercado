@@ -6,7 +6,7 @@ namespace ASP_Supermercado.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class ClientesController : ControllerBase
+    public class ClientesController : ControladorBase
     {
         private IClientesAplicaciones IClientesAplicaciones;
 
@@ -16,27 +16,55 @@ namespace ASP_Supermercado.Controllers
         }
 
         [HttpPost]
-        public List<Clientes> Consultar()
+        public ActionResult<List<Clientes>> Consultar()
         {
-            return this.IClientesAplicaciones.Consultar();
+            try
+            {
+                return this.IClientesAplicaciones.Consultar();
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Clientes Insertar(Clientes entidad)
+        public ActionResult<Clientes> Insertar(Clientes entidad)
         {
-            return this.IClientesAplicaciones.Insertar(entidad);
+            try
+            {
+                return this.IClientesAplicaciones.Insertar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Clientes Actualizar(Clientes entidad)
+        public ActionResult<Clientes> Actualizar(Clientes entidad)
         {
-            return this.IClientesAplicaciones.Actualizar(entidad);
+            try
+            {
+                return this.IClientesAplicaciones.Actualizar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Clientes Borrar(Clientes entidad)
+        public ActionResult<Clientes> Borrar(Clientes entidad)
         {
-            return this.IClientesAplicaciones.Borrar(entidad);
+            try
+            {
+                return this.IClientesAplicaciones.Borrar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ namespace lib_supermercado.entidades
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public string Descripcion { get; set; }
+        public string? Descripcion { get; set; }
         public bool RequiereBanco { get; set; }
         public decimal MontoMinimo { get; set; }
 

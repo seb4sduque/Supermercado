@@ -6,7 +6,7 @@ namespace ASP_Supermercado.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class ProveedoresController : ControllerBase
+    public class ProveedoresController : ControladorBase
     {
         private IProveedoresAplicaciones IProveedoresAplicaciones;
 
@@ -16,27 +16,55 @@ namespace ASP_Supermercado.Controllers
         }
 
         [HttpPost]
-        public List<Proveedores> Consultar()
+        public ActionResult<List<Proveedores>> Consultar()
         {
-            return this.IProveedoresAplicaciones.Consultar();
+            try
+            {
+                return this.IProveedoresAplicaciones.Consultar();
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Proveedores Insertar(Proveedores entidad)
+        public ActionResult<Proveedores> Insertar(Proveedores entidad)
         {
-            return this.IProveedoresAplicaciones.Insertar(entidad);
+            try
+            {
+                return this.IProveedoresAplicaciones.Insertar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Proveedores Actualizar(Proveedores entidad)
+        public ActionResult<Proveedores> Actualizar(Proveedores entidad)
         {
-            return this.IProveedoresAplicaciones.Actualizar(entidad);
+            try
+            {
+                return this.IProveedoresAplicaciones.Actualizar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Proveedores Borrar(Proveedores entidad)
+        public ActionResult<Proveedores> Borrar(Proveedores entidad)
         {
-            return this.IProveedoresAplicaciones.Borrar(entidad);
+            try
+            {
+                return this.IProveedoresAplicaciones.Borrar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ namespace ASP_Supermercado.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class CuentasCobrarController : ControllerBase
+    public class CuentasCobrarController : ControladorBase
     {
         private ICuentasCobrarAplicaciones ICuentasCobrarAplicaciones;
 
@@ -16,27 +16,55 @@ namespace ASP_Supermercado.Controllers
         }
 
         [HttpPost]
-        public List<CuentasCobrar> Consultar()
+        public ActionResult<List<CuentasCobrar>> Consultar()
         {
-            return this.ICuentasCobrarAplicaciones.Consultar();
+            try
+            {
+                return this.ICuentasCobrarAplicaciones.Consultar();
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public CuentasCobrar Insertar(CuentasCobrar entidad)
+        public ActionResult<CuentasCobrar> Insertar(CuentasCobrar entidad)
         {
-            return this.ICuentasCobrarAplicaciones.Insertar(entidad);
+            try
+            {
+                return this.ICuentasCobrarAplicaciones.Insertar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public CuentasCobrar Actualizar(CuentasCobrar entidad)
+        public ActionResult<CuentasCobrar> Actualizar(CuentasCobrar entidad)
         {
-            return this.ICuentasCobrarAplicaciones.Actualizar(entidad);
+            try
+            {
+                return this.ICuentasCobrarAplicaciones.Actualizar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public CuentasCobrar Borrar(CuentasCobrar entidad)
+        public ActionResult<CuentasCobrar> Borrar(CuentasCobrar entidad)
         {
-            return this.ICuentasCobrarAplicaciones.Borrar(entidad);
+            try
+            {
+                return this.ICuentasCobrarAplicaciones.Borrar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
     }
 }

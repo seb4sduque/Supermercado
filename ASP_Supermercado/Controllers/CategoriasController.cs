@@ -6,7 +6,7 @@ namespace ASP_Supermercado.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class CategoriasController : ControllerBase
+    public class CategoriasController : ControladorBase
     {
         private ICategoriasAplicaciones ICategoriasAplicaciones;
 
@@ -16,27 +16,55 @@ namespace ASP_Supermercado.Controllers
         }
 
         [HttpPost]
-        public List<Categorias> Consultar()
+        public ActionResult<List<Categorias>> Consultar()
         {
-            return this.ICategoriasAplicaciones.Consultar();
+            try
+            {
+                return this.ICategoriasAplicaciones.Consultar();
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Categorias Insertar(Categorias entidad)
+        public ActionResult<Categorias> Insertar(Categorias entidad)
         {
-            return this.ICategoriasAplicaciones.Insertar(entidad);
+            try
+            {
+                return this.ICategoriasAplicaciones.Insertar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Categorias Actualizar(Categorias entidad)
+        public ActionResult<Categorias> Actualizar(Categorias entidad)
         {
-            return this.ICategoriasAplicaciones.Actualizar(entidad);
+            try
+            {
+                return this.ICategoriasAplicaciones.Actualizar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public Categorias Borrar(Categorias entidad)
+        public ActionResult<Categorias> Borrar(Categorias entidad)
         {
-            return this.ICategoriasAplicaciones.Borrar(entidad);
+            try
+            {
+                return this.ICategoriasAplicaciones.Borrar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
     }
 }

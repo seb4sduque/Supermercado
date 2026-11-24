@@ -6,7 +6,7 @@ namespace ASP_Supermercado.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class SueldoEmpleadosController : ControllerBase
+    public class SueldoEmpleadosController : ControladorBase
     {
         private ISueldoEmpleadosAplicaciones ISueldoEmpleadosAplicaciones;
 
@@ -16,27 +16,55 @@ namespace ASP_Supermercado.Controllers
         }
 
         [HttpPost]
-        public List<SueldoEmpleados> Consultar()
+        public ActionResult<List<SueldoEmpleados>> Consultar()
         {
-            return this.ISueldoEmpleadosAplicaciones.Consultar();
+            try
+            {
+                return this.ISueldoEmpleadosAplicaciones.Consultar();
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public SueldoEmpleados Insertar(SueldoEmpleados entidad)
+        public ActionResult<SueldoEmpleados> Insertar(SueldoEmpleados entidad)
         {
-            return this.ISueldoEmpleadosAplicaciones.Insertar(entidad);
+            try
+            {
+                return this.ISueldoEmpleadosAplicaciones.Insertar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public SueldoEmpleados Actualizar(SueldoEmpleados entidad)
+        public ActionResult<SueldoEmpleados> Actualizar(SueldoEmpleados entidad)
         {
-            return this.ISueldoEmpleadosAplicaciones.Actualizar(entidad);
+            try
+            {
+                return this.ISueldoEmpleadosAplicaciones.Actualizar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public SueldoEmpleados Borrar(SueldoEmpleados entidad)
+        public ActionResult<SueldoEmpleados> Borrar(SueldoEmpleados entidad)
         {
-            return this.ISueldoEmpleadosAplicaciones.Borrar(entidad);
+            try
+            {
+                return this.ISueldoEmpleadosAplicaciones.Borrar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
     }
 }

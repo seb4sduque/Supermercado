@@ -6,7 +6,7 @@ namespace ASP_Supermercado.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class MovimientosInventariosController : ControllerBase
+    public class MovimientosInventariosController : ControladorBase
     {
         private IMovimientosInventariosAplicaciones IMovimientosInventariosAplicaciones;
 
@@ -16,27 +16,55 @@ namespace ASP_Supermercado.Controllers
         }
 
         [HttpPost]
-        public List<MovimientosInventarios> Consultar()
+        public ActionResult<List<MovimientosInventarios>> Consultar()
         {
-            return this.IMovimientosInventariosAplicaciones.Consultar();
+            try
+            {
+                return this.IMovimientosInventariosAplicaciones.Consultar();
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public MovimientosInventarios Insertar(MovimientosInventarios entidad)
+        public ActionResult<MovimientosInventarios> Insertar(MovimientosInventarios entidad)
         {
-            return this.IMovimientosInventariosAplicaciones.Insertar(entidad);
+            try
+            {
+                return this.IMovimientosInventariosAplicaciones.Insertar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public MovimientosInventarios Actualizar(MovimientosInventarios entidad)
+        public ActionResult<MovimientosInventarios> Actualizar(MovimientosInventarios entidad)
         {
-            return this.IMovimientosInventariosAplicaciones.Actualizar(entidad);
+            try
+            {
+                return this.IMovimientosInventariosAplicaciones.Actualizar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public MovimientosInventarios Borrar(MovimientosInventarios entidad)
+        public ActionResult<MovimientosInventarios> Borrar(MovimientosInventarios entidad)
         {
-            return this.IMovimientosInventariosAplicaciones.Borrar(entidad);
+            try
+            {
+                return this.IMovimientosInventariosAplicaciones.Borrar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
     }
 }

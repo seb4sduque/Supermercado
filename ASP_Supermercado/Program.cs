@@ -1,5 +1,6 @@
 using lib_supermercado.implementaciones;
 using lib_supermercado.interfaces;
+using ASP_Supermercado.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,25 @@ builder.Services.AddScoped<ITurnosAplicaciones, TurnosLogica>();
 
 var app = builder.Build();
 
+
+// Convierte los errores en un mensaje claro para el usuario (en vez de un 500 sin explicación)
+app.Use(async (contexto, siguiente) =>
+{
+    try
+    {
+        await siguiente();
+    }
+    catch (Exception ex)
+    {
+        var mensaje = ControladorBase.MensajeDeError(ex);
+        app.Logger.LogWarning("{Ruta}: {Error}", contexto.Request.Path, ex.GetBaseException().Message);
+
+        contexto.Response.Clear();
+        contexto.Response.StatusCode = mensaje.Item1;
+        contexto.Response.ContentType = "text/plain; charset=utf-8";
+        await contexto.Response.WriteAsync(mensaje.Item2);
+    }
+});
 
 // Toma el usuario que envía el front y se lo entrega a la conexión (para la auditoría)
 app.Use(async (contexto, siguiente) =>

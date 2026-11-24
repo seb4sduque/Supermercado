@@ -6,7 +6,7 @@ namespace ASP_Supermercado.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class ComprasProveedoresController : ControllerBase
+    public class ComprasProveedoresController : ControladorBase
     {
         private IComprasProveedoresAplicaciones IComprasProveedoresAplicaciones;
 
@@ -16,27 +16,55 @@ namespace ASP_Supermercado.Controllers
         }
 
         [HttpPost]
-        public List<ComprasProveedores> Consultar()
+        public ActionResult<List<ComprasProveedores>> Consultar()
         {
-            return this.IComprasProveedoresAplicaciones.Consultar();
+            try
+            {
+                return this.IComprasProveedoresAplicaciones.Consultar();
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public ComprasProveedores Insertar(ComprasProveedores entidad)
+        public ActionResult<ComprasProveedores> Insertar(ComprasProveedores entidad)
         {
-            return this.IComprasProveedoresAplicaciones.Insertar(entidad);
+            try
+            {
+                return this.IComprasProveedoresAplicaciones.Insertar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public ComprasProveedores Actualizar(ComprasProveedores entidad)
+        public ActionResult<ComprasProveedores> Actualizar(ComprasProveedores entidad)
         {
-            return this.IComprasProveedoresAplicaciones.Actualizar(entidad);
+            try
+            {
+                return this.IComprasProveedoresAplicaciones.Actualizar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
 
         [HttpPost]
-        public ComprasProveedores Borrar(ComprasProveedores entidad)
+        public ActionResult<ComprasProveedores> Borrar(ComprasProveedores entidad)
         {
-            return this.IComprasProveedoresAplicaciones.Borrar(entidad);
+            try
+            {
+                return this.IComprasProveedoresAplicaciones.Borrar(entidad);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex);
+            }
         }
     }
 }

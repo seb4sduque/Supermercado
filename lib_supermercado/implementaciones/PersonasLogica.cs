@@ -17,6 +17,9 @@ namespace lib_supermercado.implementaciones
 
         public Personas Insertar(Personas entidad)
         {
+            if (this.conexion.Personas.Any(x => x.Documento == entidad.Documento))
+                throw new Exception("El documento ya existe");
+
             this.conexion.Personas.Add(entidad);
             this.conexion.SaveChanges();
             return entidad;
@@ -29,6 +32,9 @@ namespace lib_supermercado.implementaciones
 
         public Personas Actualizar(Personas entidad)
         {
+            if (this.conexion.Personas.Any(x => x.Documento == entidad.Documento && x.Id != entidad.Id))
+                throw new Exception("El documento ya está en uso");
+
             this.conexion.Entry<Personas>(entidad).State = EntityState.Modified;
             this.conexion.SaveChanges();
             return entidad;
